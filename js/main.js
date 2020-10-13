@@ -58,7 +58,7 @@ let renderAd = (ad) => {
   picture.alt = ad.offer.title;
 
   return adElement;
-}
+};
 
 let fragment = document.createDocumentFragment();
 for (let i = 0; i < getGenerateAd.length; i++) {
