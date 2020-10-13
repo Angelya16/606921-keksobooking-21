@@ -46,6 +46,7 @@ const getGenerateAd = [...Array(8).keys()].map((id) => ({
 
 
 let mapPinTemplate = document.querySelector('#pin').content;
+let mapPins = document.querySelector('.map__pins');
 
 let renderAd = (ad) => {
   let adElement = mapPinTemplate.cloneNode(true);
@@ -64,4 +65,4 @@ let fragment = document.createDocumentFragment();
 for (let i = 0; i < getGenerateAd.length; i++) {
   fragment.appendChild(renderAd(getGenerateAd[i]));
 }
-mapPinTemplate.appendChild(fragment);
+mapPins.appendChild(fragment);
