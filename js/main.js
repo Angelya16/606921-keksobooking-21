@@ -51,9 +51,9 @@ let mapPins = document.querySelector('.map__pins');
 let renderAd = (ad) => {
   let adElement = mapPinTemplate.cloneNode(true);
 
-  adElement.querySelector('.map__pin').style.left = ad.location.x + '15px';
-  adElement.querySelector('.map__pin').style.top = ad.location.y + '15px';
-
+  adElement.querySelector('.map__pin').style.left = ad.location.x + 15 + 'px';
+  adElement.querySelector('.map__pin').style.top = ad.location.y + 15 + 'px';
+console.log( ad.location.x);
   let picture = adElement.querySelector('img');
   picture.src = ad.author.avatar;
   picture.alt = ad.offer.title;
