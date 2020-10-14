@@ -53,7 +53,7 @@ let renderAd = (ad) => {
 
   adElement.querySelector('.map__pin').style.left = ad.location.x + 15 + 'px';
   adElement.querySelector('.map__pin').style.top = ad.location.y + 15 + 'px';
-console.log( ad.location.x);
+
   let picture = adElement.querySelector('img');
   picture.src = ad.author.avatar;
   picture.alt = ad.offer.title;
