@@ -78,9 +78,6 @@ mapPins.appendChild(fragment);
 
 let popupCardTemplate = document.querySelector('#card').content;
 
-// let popupCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
-// let mapCard = popupCardTemplate.querySelector('.map__card');
-
 let renderPopup = (ad) => {
   let popupElement = popupCardTemplate.cloneNode(true);
   let popupPhotos = popupElement.querySelector('.popup__photos');
@@ -120,16 +117,9 @@ let renderPopup = (ad) => {
 
   return popupElement;
 };
-// let fragmentPopup = document.createDocumentFragment();
-// for (let i = 0; i < getGenerateAd.length; i++) {
-//   fragmentPopup.appendChild(renderPopup(getGenerateAd[i]));
-// }
-
-// mapPins.append(fragmentPopup);
 
 let fragmentPopup = document.createDocumentFragment();
 fragmentPopup.appendChild(renderPopup(getGenerateAd[random(1, 8)]));
 
 
 mapPins.append(fragmentPopup);
-// mapPins.append(popupCardTemplate);
