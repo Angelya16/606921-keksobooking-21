@@ -256,9 +256,12 @@ if (roomNumSelect.value < capacitySelect.value) {
 }
 
 let quantityRoomsAndGuests = (evt) => {
+  let penultValueRoom = roomNumSelect.length - 2;
+  let lastIndexGuest = capacitySelect.length - 1;
+  // console.log(roomNumSelect.length - 2, capacitySelect.length - 1);
   try {
     if (evt.type === `change`) {
-      if (capacitySelect.value > roomNumSelect.value || capacitySelect.selectedIndex === 3) {
+      if (capacitySelect.value > roomNumSelect.value || capacitySelect.selectedIndex === lastIndexGuest) {
         capacitySelect.value = roomNumSelect.value;
       }
       capacitySelect.setCustomValidity(``);
@@ -268,20 +271,20 @@ let quantityRoomsAndGuests = (evt) => {
   }
   if (roomNumSelect.selectedIndex === 3) {
     capacitySelect.value = 0;
-    for (let i = 0; i < capacitySelect.length - 1; i++) {
+    for (let i = 0; i < lastIndexGuest; i++) {
       capacitySelect.options[i].style.display = `none`;
       capacitySelect.disabled = true;
       capacitySelect.setCustomValidity(``);
     }
   } else if (roomNumSelect.selectedIndex !== 3) {
     capacitySelect.disabled = false;
-    for (let i = roomNumSelect.length - 2; i >= (roomNumSelect.length - 2) - roomNumSelect.selectedIndex; i--) {
+    for (let i = roomNumSelect.length - 2; i >= (penultValueRoom) - roomNumSelect.selectedIndex; i--) {
       for (let j = 0; j < capacitySelect.length - roomNumSelect.value; j++) {
         capacitySelect.options[i].style.display = `block`;
         if (j !== i) {
           capacitySelect.options[j].style.display = `none`;
         }
-        capacitySelect.options[capacitySelect.length - 1].style.display = `none`;
+        capacitySelect.options[lastIndexGuest].style.display = `none`;
       }
     }
   }
