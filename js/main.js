@@ -1,19 +1,19 @@
 'use strict';
 
-const TYPE_HOMES = ['palace', 'flat', 'house', 'bungalow'];
+const TYPE_HOMES = [`palace`, `flat`, `house`, `bungalow`];
 
 const TYPE_HOMES_RU = {
-  'palace': 'Дворец',
-  'flat': 'Квартира',
-  'house': 'Дом',
-  'bungalow': 'Бунгало'
+  'palace': `Дворец`,
+  'flat': `Квартира`,
+  'house': `Дом`,
+  'bungalow': `Бунгало`
 };
 
-const CHECK_TIMES = ['12:00', '13:00', '14:00'];
+const CHECK_TIMES = [`12:00`, `13:00`, `14:00`];
 
-const map = document.querySelector('.map');
+const map = document.querySelector(`.map`);
 
-map.classList.remove('map--faded');
+map.classList.remove(`map--faded`);
 
 const random = (min, max) => Math.floor(Math.random() * (max - min) + min);
 
@@ -23,11 +23,11 @@ let rndCoordinates = [...Array(8).keys()].map(() => ({
 
 }));
 
-let adTitles = ["Домик на ночь", "Привал странника", "Просторные хоромы", "Место для тусэ", "Хата для отдыха", "Внимание! Шикарное местечко", "Мур-мяу", "Скромная лачуга"];
+let adTitles = [`Домик на ночь`, `Привал странника`, `Просторные хоромы`, `Место для тусэ`, `Хата для отдыха`, `Внимание! Шикарное местечко`, `Мур-мяу`, `Скромная лачуга`];
 
-let featuresHomes = ["wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"];
+let featuresHomes = [`wifi`, `dishwasher`, `parking`, `washer`, `elevator`, `conditioner`];
 
-let photosHomes = ["http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o0.github.io/assets/images/tokyo/hotel2.jpg", "http://o0.github.io/assets/images/tokyo/hotel3.jpg"];
+let photosHomes = [`http://o0.github.io/assets/images/tokyo/hotel1.jpg`, `http://o0.github.io/assets/images/tokyo/hotel2.jpg`, `http://o0.github.io/assets/images/tokyo/hotel3.jpg`];
 
 const getGenerateAd = [...Array(8).keys()].map((id) => ({
   author: {
@@ -35,7 +35,7 @@ const getGenerateAd = [...Array(8).keys()].map((id) => ({
   },
   offer: {
     title: adTitles[id],
-    address: String(rndCoordinates[id].x + ', ' + rndCoordinates[id].y),
+    address: String(rndCoordinates[id].x + `, ` + rndCoordinates[id].y),
     price: random(5000, 50000),
     type: TYPE_HOMES[random(0, TYPE_HOMES.length)],
     rooms: random(1, 4),
@@ -53,16 +53,16 @@ const getGenerateAd = [...Array(8).keys()].map((id) => ({
 }));
 
 
-let mapPinTemplate = document.querySelector('#pin').content;
-let mapPins = document.querySelector('.map__pins');
+let mapPinTemplate = document.querySelector(`#pin`).content;
+let mapPins = document.querySelector(`.map__pins`);
 
 let renderAd = (ad) => {
   let adElement = mapPinTemplate.cloneNode(true);
 
-  adElement.querySelector('.map__pin').style.left = ad.location.x + 15 + 'px';
-  adElement.querySelector('.map__pin').style.top = ad.location.y + 15 + 'px';
+  adElement.querySelector(`.map__pin`).style.left = ad.location.x + 15 + `px`;
+  adElement.querySelector(`.map__pin`).style.top = ad.location.y + 15 + `px`;
 
-  let picture = adElement.querySelector('img');
+  let picture = adElement.querySelector(`img`);
   picture.src = ad.author.avatar;
   picture.alt = ad.offer.title;
 
@@ -76,44 +76,44 @@ for (let i = 0; i < getGenerateAd.length; i++) {
 mapPins.appendChild(fragment);
 
 
-let popupCardTemplate = document.querySelector('#card').content;
+let popupCardTemplate = document.querySelector(`#card`).content;
 
 let renderPopup = (ad) => {
   let popupElement = popupCardTemplate.cloneNode(true);
-  let popupPhotos = popupElement.querySelector('.popup__photos');
+  let popupPhotos = popupElement.querySelector(`.popup__photos`);
 
-  popupElement.querySelector('.popup__title').textContent = ad.offer.title;
-  popupElement.querySelector('.popup__text--address').textContent = ad.offer.address;
-  popupElement.querySelector('.popup__text--price').textContent = ad.offer.price + '₽/ночь';
-  popupElement.querySelector('.popup__type').textContent = TYPE_HOMES_RU[ad.offer.type];
-  popupElement.querySelector('.popup__text--capacity').textContent = ad.offer.rooms + ' комнаты для ' + ad.offer.guests + ' гостей';
-  popupElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + ad.offer.checkin + ', выезд до ' + ad.offer.checkout;
+  popupElement.querySelector(`.popup__title`).textContent = ad.offer.title;
+  popupElement.querySelector(`.popup__text--address`).textContent = ad.offer.address;
+  popupElement.querySelector(`.popup__text--price`).textContent = ad.offer.price + `₽/ночь`;
+  popupElement.querySelector(`.popup__type`).textContent = TYPE_HOMES_RU[ad.offer.type];
+  popupElement.querySelector(`.popup__text--capacity`).textContent = ad.offer.rooms + ` комнаты для ` + ad.offer.guests + ` гостей`;
+  popupElement.querySelector(`.popup__text--time`).textContent = `Заезд после ` + ad.offer.checkin + `, выезд до ` + ad.offer.checkout;
 
   for (let i = 0; i < featuresHomes.length; i++) {
-    let popupFeatures = popupElement.querySelector('.popup__features');
-    popupFeatures.children[i].style.display = 'none';
+    let popupFeatures = popupElement.querySelector(`.popup__features`);
+    popupFeatures.children[i].style.display = `none`;
     for (let j = 0; j < ad.offer.features.length; j++) {
-      let classListPopup = 'popup__feature--' + ad.offer.features[j];
+      let classListPopup = `popup__feature--` + ad.offer.features[j];
       if (popupFeatures.children[i].classList[1] === classListPopup) {
-        popupFeatures.children[i].style.display = 'inline-block';
+        popupFeatures.children[i].style.display = `inline-block`;
       }
     }
   }
 
-  popupElement.querySelector('.popup__description').textContent = ad.offer.description;
+  popupElement.querySelector(`.popup__description`).textContent = ad.offer.description;
 
   if (ad.offer.photos.length === 0) {
     popupPhotos.remove();
   } else {
     for (let i = 0; i < ad.offer.photos.length; i++) {
-      let popupPhoto = popupPhotos.querySelector('.popup__photo').cloneNode();
+      let popupPhoto = popupPhotos.querySelector(`.popup__photo`).cloneNode();
       popupPhoto.src = ad.offer.photos[i];
       popupPhotos.append(popupPhoto);
     }
     popupPhotos.children[0].remove();
   }
 
-  popupElement.querySelector('.popup__avatar').src = ad.author.avatar;
+  popupElement.querySelector(`.popup__avatar`).src = ad.author.avatar;
 
   return popupElement;
 };
