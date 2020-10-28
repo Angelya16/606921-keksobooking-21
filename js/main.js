@@ -58,12 +58,9 @@ let mapPins = document.querySelector(`.map__pins`);
 
 let renderAd = (ad) => {
   let adElement = mapPinTemplate.cloneNode(true);
-  let mapPin = adElement.querySelector(`.map__pin`);
 
-  console.log(mapPin.hasOwnProperty());
-
-  mapPin.style.left = ad.location.x + 15 + `px`;
-  mapPin.style.top = ad.location.y + 15 + `px`;
+  adElement.querySelector(`.map__pin`).style.left = ad.location.x + 15 + `px`;
+  adElement.querySelector(`.map__pin`).style.top = ad.location.y + 15 + `px`;
 
   let picture = adElement.querySelector(`img`);
   picture.src = ad.author.avatar;
@@ -122,13 +119,20 @@ let renderPopup = (ad) => {
 
 let fragmentPopup = document.createDocumentFragment();
 
-fragmentPopup.appendChild(renderPopup(getGenerateAd[1]));
+let mapPin = mapPins.querySelectorAll(`button[class="map__pin"]`)
+
+fragmentPopup.appendChild(renderPopup(getGenerateAd[6]));
 mapPins.append(fragmentPopup);
 
-console.log(mapPins.querySelectorAll(`button`));
+let openPopup = (num) => {
+  console.log(popupCardTemplate.querySelector(`article`).children);
+  renderPopup(num);
+};
 
-// let openPopup = (num) => {
-//   fragmentPopup.appendChild(renderPopup(getGenerateAd[num]));
-//   mapPins.append(fragmentPopup);
-// };
-
+for (let i = 0; i < mapPin.length; i++) {
+  mapPin[i].addEventListener(`click`, (evt) => {
+    console.log(evt, i);
+    openPopup(i);
+  });
+  
+}
