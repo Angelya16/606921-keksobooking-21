@@ -122,29 +122,41 @@ let renderPopup = (ad) => {
 
 let fragmentPopup = document.createDocumentFragment();
 
-let mapPin = mapPins.querySelectorAll(`button[class="map__pin"]`)
-
-// fragmentPopup.appendChild(renderPopup(getGenerateAd[6]));
-// mapPins.append(fragmentPopup);
+let mapPin = mapPins.querySelectorAll(`button[class="map__pin"]`);
 
 let openPopup = (num) => {
   let windowPopup = mapPins.querySelector(`article`);
-  // fragmentPopup.replaceChild(renderPopup(getGenerateAd[6]));
 
-  // mapPins.querySelector(`article`).querySelector(`.popup__title`).textContent = getGenerateAd[num].offer.title;
-  // console.log(getGenerateAd[num].offer.title);
-  // console.log(mapPins.querySelector(`article`).querySelector(`.popup__title`).textContent);
   if (windowPopup !== null) {
     mapPins.querySelector(`article`).remove();
   }
 
   fragmentPopup.appendChild(renderPopup(getGenerateAd[num]));
   mapPins.append(fragmentPopup);
+
+  let popupCloseBtn = mapPins.querySelector(`.popup__close`);
+
+  let closePopup = (evt) => {
+    if (evt.key === `Escape` || evt.type === `click`) {
+      mapPins.querySelector(`article`).remove();
+      document.removeEventListener(`keydown`, closePopup);
+      popupCloseBtn.removeEventListener(`click`, closePopup);
+    }
+  };
+
+  document.addEventListener(`keydown`, closePopup);
+  popupCloseBtn.addEventListener(`click`, closePopup);
+
 };
 
 for (let i = 0; i < mapPin.length; i++) {
-  mapPin[i].addEventListener(`click`, (evt) => {
-    // console.log(evt, i);
+  mapPin[i].addEventListener(`click`, () => {
     openPopup(i);
+  });
+  mapPin[i].addEventListener(`keydown`, (evt) => {
+    if (evt.key === `Enter`) {
+      openPopup(i);
+      console.log(evt.eventPhase);
+    }
   });
 }
