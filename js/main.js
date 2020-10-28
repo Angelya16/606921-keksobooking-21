@@ -77,6 +77,9 @@ mapPins.appendChild(fragment);
 
 let popupCardTemplate = document.querySelector(`#card`).content;
 
+
+// let popupElement = popupCardTemplate.cloneNode(true);
+
 let renderPopup = (ad) => {
   let popupElement = popupCardTemplate.cloneNode(true);
   let popupPhotos = popupElement.querySelector(`.popup__photos`);
@@ -121,18 +124,27 @@ let fragmentPopup = document.createDocumentFragment();
 
 let mapPin = mapPins.querySelectorAll(`button[class="map__pin"]`)
 
-fragmentPopup.appendChild(renderPopup(getGenerateAd[6]));
-mapPins.append(fragmentPopup);
+// fragmentPopup.appendChild(renderPopup(getGenerateAd[6]));
+// mapPins.append(fragmentPopup);
 
 let openPopup = (num) => {
-  console.log(popupCardTemplate.querySelector(`article`).children);
-  renderPopup(num);
+  let windowPopup = mapPins.querySelector(`article`);
+  // fragmentPopup.replaceChild(renderPopup(getGenerateAd[6]));
+
+  // mapPins.querySelector(`article`).querySelector(`.popup__title`).textContent = getGenerateAd[num].offer.title;
+  // console.log(getGenerateAd[num].offer.title);
+  // console.log(mapPins.querySelector(`article`).querySelector(`.popup__title`).textContent);
+  if (windowPopup !== null) {
+    mapPins.querySelector(`article`).remove();
+  }
+
+  fragmentPopup.appendChild(renderPopup(getGenerateAd[num]));
+  mapPins.append(fragmentPopup);
 };
 
 for (let i = 0; i < mapPin.length; i++) {
   mapPin[i].addEventListener(`click`, (evt) => {
-    console.log(evt, i);
+    // console.log(evt, i);
     openPopup(i);
   });
-  
 }
