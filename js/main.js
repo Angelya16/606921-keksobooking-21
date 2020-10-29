@@ -124,7 +124,7 @@ let fragmentPopup = document.createDocumentFragment();
 
 let mapPin = mapPins.querySelectorAll(`button[class="map__pin"]`);
 
-let openPopup = (num) => {
+let openPopup = (num, evt) => {
   let windowPopup = mapPins.querySelector(`article`);
 
   if (windowPopup !== null) {
@@ -137,26 +137,30 @@ let openPopup = (num) => {
   let popupCloseBtn = mapPins.querySelector(`.popup__close`);
 
   let closePopup = (evt) => {
-    if (evt.key === `Escape` || evt.type === `click`) {
-      mapPins.querySelector(`article`).remove();
-      document.removeEventListener(`keydown`, closePopup);
-      popupCloseBtn.removeEventListener(`click`, closePopup);
-    }
+    // evt.preventDefault();
+    document.removeEventListener(`keydown`, closePopup);
+    popupCloseBtn.removeEventListener(`click`, closePopup);
+    mapPins.querySelector(`article`).remove();
   };
 
   document.addEventListener(`keydown`, closePopup);
   popupCloseBtn.addEventListener(`click`, closePopup);
-
+  console.log(`Сработала функция ` + `openPopup`);
 };
 
 for (let i = 0; i < mapPin.length; i++) {
-  mapPin[i].addEventListener(`click`, () => {
-    openPopup(i);
-  });
   mapPin[i].addEventListener(`keydown`, (evt) => {
     if (evt.key === `Enter`) {
       openPopup(i);
-      console.log(evt.eventPhase);
+      console.log(`keydown, открыли с помощью Enter`, i, evt.which);
+      // evt.preventDefault();
+    }
+  });
+
+  mapPin[i].addEventListener(`click`, (evt) => {
+    if (evt.type === `click`) {
+      openPopup(i);    
+      console.log(`click, открыли с помощью Click`);
     }
   });
 }
