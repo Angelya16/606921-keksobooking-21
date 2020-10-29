@@ -149,16 +149,16 @@ let openPopup = (num, evt) => {
 };
 
 for (let i = 0; i < mapPin.length; i++) {
-  mapPin[i].addEventListener(`keydown`, (evt) => {
-    if (evt.key === `Enter`) {
-      openPopup(i);
-      console.log(`keydown, открыли с помощью Enter`, i, evt.which);
-      // evt.preventDefault();
-    }
-  });
+  // mapPin[i].addEventListener(`keydown`, (evt) => {
+  //   if (evt.key === `Enter`) {
+  //     openPopup(i);
+  //     console.log(`keydown, открыли с помощью Enter`, i, evt.which);
+  //     // evt.preventDefault();
+  //   }
+  // });
 
   mapPin[i].addEventListener(`click`, (evt) => {
-    if (evt.type === `click`) {
+    if (evt.which === 1) {
       openPopup(i);    
       console.log(`click, открыли с помощью Click`);
     }
