@@ -147,17 +147,21 @@ let mapPinMain = document.querySelector(`.map__pin--main`);
 
 adAddress.value = `${mapPinMain.offsetLeft - mapPinMain.clientWidth / 2}, ${mapPinMain.offsetTop - mapPinMain.clientHeight / 2}`;
 
+let getStartedMap = () => {
+  adFormDisabled(false);
+  map.classList.remove(`map--faded`);
+  adAddress.value = `${mapPinMain.offsetLeft - mapPinMain.clientWidth / 2}, ${mapPinMain.offsetTop - (mapPinMain.clientHeight / 2) + 22}`;
+  quantityRoomsAndGuests();
+}
+
 mapPinMain.addEventListener(`mousedown`, (evt) => {
   if (evt.which === 1) {
-    adFormDisabled(false);
-    map.classList.remove(`map--faded`);
-    adAddress.value = `${mapPinMain.offsetLeft - mapPinMain.clientWidth / 2}, ${mapPinMain.offsetTop - (mapPinMain.clientHeight / 2) + 22}`;
-    quantityRoomsAndGuests();
+    getStartedMap();
   }
 });
 mapPinMain.addEventListener(`keydown`, (evt) => {
   if (evt.key === `Enter`) {
-    adFormDisabled(false);
+    getStartedMap();
   }
 });
 
@@ -166,18 +170,6 @@ mapPinMain.addEventListener(`keydown`, (evt) => {
 // });
 
 let titleInput = adForm.querySelector(`#title`);
-
-// titleInput.addEventListener(`invalid`, () => {
-//   if (titleInput.validity.tooShort) {
-//     titleInput.setCustomValidity(`Заголовок должен состоять минимум из 30-ти символов`);
-//   } else if (titleInput.validity.tooLong) {
-//     titleInput.setCustomValidity(`Заголовок не должен превышать 100 символов`);
-//   } else if (titleInput.validity.valueMissing) {
-//     titleInput.setCustomValidity(`Обязательное поле`);
-//   } else {
-//     titleInput.setCustomValidity(``);
-//   }
-// });
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
@@ -258,7 +250,6 @@ if (roomNumSelect.value < capacitySelect.value) {
 let quantityRoomsAndGuests = (evt) => {
   let penultValueRoom = roomNumSelect.length - 2;
   let lastIndexGuest = capacitySelect.length - 1;
-  // console.log(roomNumSelect.length - 2, capacitySelect.length - 1);
   try {
     if (evt.type === `change`) {
       if (capacitySelect.value > roomNumSelect.value || capacitySelect.selectedIndex === lastIndexGuest) {
