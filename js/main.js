@@ -124,7 +124,7 @@ let fragmentPopup = document.createDocumentFragment();
 
 let mapPin = mapPins.querySelectorAll(`button[class="map__pin"]`);
 
-let openPopup = (num, evt) => {
+let openPopup = (num) => {
   let windowPopup = mapPins.querySelector(`article`);
 
   if (windowPopup !== null) {
@@ -136,7 +136,7 @@ let openPopup = (num, evt) => {
 
   let popupCloseBtn = mapPins.querySelector(`.popup__close`);
 
-  let closePopup = (evt) => {
+  let closePopup = () => {
     document.removeEventListener(`keydown`, closePopup);
     popupCloseBtn.removeEventListener(`click`, closePopup);
     mapPins.querySelector(`article`).remove();
@@ -144,14 +144,12 @@ let openPopup = (num, evt) => {
 
   document.addEventListener(`keydown`, closePopup);
   popupCloseBtn.addEventListener(`click`, closePopup);
-  console.log(`Сработала функция ` + `openPopup`);
 };
 
 for (let i = 0; i < mapPin.length; i++) {
   mapPin[i].addEventListener(`click`, (evt) => {
     if (evt.which === 1) {
-      openPopup(i);    
-      console.log(`click, открыли с помощью Click`);
+      openPopup(i);
     }
   });
 }
