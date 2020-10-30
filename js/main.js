@@ -22,6 +22,7 @@ let rndCoordinates = [...Array(8).keys()].map(() => ({
 
 }));
 
+
 let adTitles = [`Домик на ночь`, `Привал странника`, `Просторные хоромы`, `Место для тусэ`, `Хата для отдыха`, `Внимание! Шикарное местечко`, `Мур-мяу`, `Скромная лачуга`];
 
 let featuresHomes = [`wifi`, `dishwasher`, `parking`, `washer`, `elevator`, `conditioner`];
@@ -34,6 +35,7 @@ const getGenerateAd = [...Array(8).keys()].map((id) => ({
   },
   offer: {
     title: adTitles[id],
+
     address: String(rndCoordinates[id].x + `, ` + rndCoordinates[id].y),
     price: random(5000, 50000),
     type: TYPE_HOMES[random(0, TYPE_HOMES.length)],
@@ -52,6 +54,7 @@ const getGenerateAd = [...Array(8).keys()].map((id) => ({
 }));
 
 
+
 let mapPinTemplate = document.querySelector(`#pin`).content;
 let mapPins = document.querySelector(`.map__pins`);
 
@@ -68,6 +71,7 @@ const renderAd = (ad) => {
 
   return adElement;
 };
+
 
 // const addPinsToMap = () => {
 //   let fragment = document.createDocumentFragment();
