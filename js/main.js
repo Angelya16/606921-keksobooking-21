@@ -13,7 +13,7 @@ const CHECK_TIMES = [`12:00`, `13:00`, `14:00`];
 
 const map = document.querySelector(`.map`);
 
-map.classList.remove(`map--faded`);
+// map.classList.remove(`map--faded`);
 
 const random = (min, max) => Math.floor(Math.random() * (max - min) + min);
 
@@ -77,8 +77,6 @@ mapPins.appendChild(fragment);
 
 let popupCardTemplate = document.querySelector(`#card`).content;
 
-
-// let popupElement = popupCardTemplate.cloneNode(true);
 
 let renderPopup = (ad) => {
   let popupElement = popupCardTemplate.cloneNode(true);
