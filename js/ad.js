@@ -11,7 +11,7 @@
   const random = (min, max) => Math.floor(Math.random() * (max - min) + min);
 
   let rndCoordinates = [...Array(8).keys()].map(() => ({
-    x: random(0, map.clientWidth),
+    x: random(0, window.map.clientWidth),
     y: random(130, 630)
 
   }));
@@ -35,7 +35,7 @@
       guests: random(0, 100),
       checkin: CHECK_TIMES[random(0, CHECK_TIMES.length)],
       checkout: CHECK_TIMES[random(0, CHECK_TIMES.length)],
-      features: ((num) => featuresHomes.slice(random(0, num), random(num, featuresHomes.length)))(random(0, featuresHomes.length - 1)),
+      features: ((num) => window.featuresHomes.slice(random(0, num), random(num, window.featuresHomes.length)))(random(0, window.featuresHomes.length - 1)),
       description: adTitles[id],
       photos: ((num) => photosHomes.slice(random(0, num), random(num, photosHomes.length)))(random(0, photosHomes.length - 1))
     },
