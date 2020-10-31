@@ -13,8 +13,6 @@ const CHECK_TIMES = [`12:00`, `13:00`, `14:00`];
 
 const map = document.querySelector(`.map`);
 
-// map.classList.remove(`map--faded`);
-
 const random = (min, max) => Math.floor(Math.random() * (max - min) + min);
 
 let rndCoordinates = [...Array(8).keys()].map(() => ({
