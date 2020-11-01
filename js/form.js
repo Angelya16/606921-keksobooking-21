@@ -29,14 +29,17 @@
 
   let mapPinMain = document.querySelector(`.map__pin--main`);
 
-
-  adAddress.value = `${mapPinMain.offsetLeft - mapPinMain.clientWidth / 2}, ${mapPinMain.offsetTop - mapPinMain.clientHeight / 2}`;
+  const coordinatesPin = (num) => {
+    adAddress.value = `${mapPinMain.offsetLeft - mapPinMain.clientWidth / 2}, ${mapPinMain.offsetTop - (mapPinMain.clientHeight / 2) + num}`;
+  };
+  coordinatesPin(0);
 
   const getStartedMap = () => {
     adFormDisabled(false);
     window.map.classList.remove(`map--faded`);
-    adAddress.value = `${mapPinMain.offsetLeft - mapPinMain.clientWidth / 2}, ${mapPinMain.offsetTop - (mapPinMain.clientHeight / 2) + 22}`;
+    coordinatesPin(22);
     quantityRoomsAndGuests();
+    window.addsPinsMap();
   };
 
   mapPinMain.addEventListener(`mousedown`, (evt) => {
@@ -89,7 +92,6 @@
     priceInput.reportValidity();
   };
 
-
   typeHomeSelect.addEventListener(`change`, () => {
     priceInput.placeholder = TYPE_HOMES_MIN_SUM[typeHomeSelect.value];
     choiceTypeHome();
@@ -112,32 +114,20 @@
   let roomNumSelect = adForm.querySelector(`#room_number`);
   let capacitySelect = adForm.querySelector(`#capacity`);
 
-  if (roomNumSelect.value < capacitySelect.value) {
-    capacitySelect.setCustomValidity(`Слишком большое количество гостей`);
-  }
-
-  const quantityRoomsAndGuests = (evt) => {
+  const quantityRoomsAndGuests = () => {
     let penultValueRoom = roomNumSelect.length - 2;
     let lastIndexGuest = capacitySelect.length - 1;
-    try {
-      if (evt.type === `change`) {
-        if (capacitySelect.value > roomNumSelect.value || capacitySelect.selectedIndex === lastIndexGuest) {
-          capacitySelect.value = roomNumSelect.value;
-        }
-        capacitySelect.setCustomValidity(``);
-      }
-    } catch (err) {
-      evt = undefined;
+
+    if (capacitySelect.value > roomNumSelect.value || capacitySelect.selectedIndex === lastIndexGuest) {
+      capacitySelect.value = roomNumSelect.value;
     }
     if (roomNumSelect.selectedIndex === 3) {
       capacitySelect.value = 0;
       for (let i = 0; i < lastIndexGuest; i++) {
         capacitySelect.options[i].style.display = `none`;
-        capacitySelect.disabled = true;
-        capacitySelect.setCustomValidity(``);
+        capacitySelect.options[lastIndexGuest].style.display = `block`;
       }
     } else if (roomNumSelect.selectedIndex !== 3) {
-      capacitySelect.disabled = false;
       for (let i = roomNumSelect.length - 2; i >= (penultValueRoom) - roomNumSelect.selectedIndex; i--) {
         for (let j = 0; j < capacitySelect.length - roomNumSelect.value; j++) {
           capacitySelect.options[i].style.display = `block`;
@@ -148,7 +138,7 @@
         }
       }
     }
-    roomNumSelect.reportValidity();
   };
+  quantityRoomsAndGuests();
   roomNumSelect.addEventListener(`change`, quantityRoomsAndGuests);
 })();

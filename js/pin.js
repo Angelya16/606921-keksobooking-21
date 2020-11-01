@@ -1,6 +1,5 @@
 'use strict';
 
-//  __________________ pin - отображение и создание метки объявления
 (function () {
   let mapPinTemplate = document.querySelector(`#pin`).content;
   window.mapPins = document.querySelector(`.map__pins`);
@@ -18,9 +17,19 @@
     return adElement;
   };
 
-  let fragment = document.createDocumentFragment();
-  for (let i = 0; i < window.getGenerateAd.length; i++) {
-    fragment.appendChild(renderAdPin(window.getGenerateAd[i]));
-  }
-  window.mapPins.appendChild(fragment);
+  window.addsPinsMap = () => {
+    let fragment = document.createDocumentFragment();
+    for (let i = 0; i < window.getGenerateAd.length; i++) {
+      fragment.appendChild(renderAdPin(window.getGenerateAd[i]));
+    }
+    window.mapPins.appendChild(fragment);
+    let mapPin = window.mapPins.querySelectorAll(`button[class="map__pin"]`);
+    for (let i = 0; i < mapPin.length; i++) {
+      mapPin[i].addEventListener(`click`, (evt) => {
+        if (evt.which === 1) {
+          window.openPopup(i);
+        }
+      });
+    }
+  };
 })();

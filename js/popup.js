@@ -1,6 +1,5 @@
 'use strict';
 
-//  __________________ popup - создание и отображение попапа метки
 (function () {
   const TYPE_HOMES_RU = {
     'palace': `Дворец`,
@@ -53,9 +52,9 @@
 
   let fragmentPopup = document.createDocumentFragment();
 
-  let mapPin = window.mapPins.querySelectorAll(`button[class="map__pin"]`);
+  // let mapPin = window.mapPins.querySelectorAll(`button[class="map__pin"]`);
 
-  const openPopup = (num) => {
+  window.openPopup = (num) => {
     let windowPopup = window.mapPins.querySelector(`article`);
 
     if (windowPopup !== null) {
@@ -76,12 +75,4 @@
     document.addEventListener(`keydown`, closePopup);
     popupCloseBtn.addEventListener(`click`, closePopup);
   };
-
-  for (let i = 0; i < mapPin.length; i++) {
-    mapPin[i].addEventListener(`click`, (evt) => {
-      if (evt.which === 1) {
-        openPopup(i);
-      }
-    });
-  }
 })();

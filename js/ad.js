@@ -1,7 +1,5 @@
 'use strict';
 
-//  __________________ ad - создание объявления
-
 (function () {
   const TYPE_HOMES = [`palace`, `flat`, `house`, `bungalow`];
   const CHECK_TIMES = [`12:00`, `13:00`, `14:00`];
