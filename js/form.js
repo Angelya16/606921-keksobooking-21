@@ -10,11 +10,10 @@
     'bungalow': 0
   };
 
-  let adForm = document.querySelector(`.ad-form`);
+  let adForm = window.adFormGlobal;
   let adFormFieldset = adForm.children;
-  window.adAddress = adForm.querySelector(`#address`);
 
-  const adFormDisabled = (boolean) => {
+  window.adFormDisabled = (boolean) => {
     for (let i = 0; i < adFormFieldset.length; i++) {
       adFormFieldset[i].disabled = boolean;
     }
@@ -24,7 +23,7 @@
       adForm.classList.add(`ad-form--disabled`);
     }
   };
-  adFormDisabled(true);
+  window.adFormDisabled(true);
 
   let titleInput = adForm.querySelector(`#title`);
 
