@@ -5,7 +5,7 @@
 
   const TRANSFORM_ORIGIN_COORDS_PIN_MAP = {
     center: 2,
-    bottom_center: 1
+    bottomCenter: 1
   };
 
   const PIN_LIMITS_ON_MAP = {
@@ -34,7 +34,7 @@
   const getStartedMap = () => {
     window.adFormDisabled(false);
     window.map.classList.remove(`map--faded`);
-    locationPinOnMap(TRANSFORM_ORIGIN_COORDS_PIN_MAP.bottom_center);
+    locationPinOnMap(TRANSFORM_ORIGIN_COORDS_PIN_MAP.bottomCenter);
     window.addsPinsMap();
     isActiveMap = true;
   };
@@ -52,7 +52,7 @@
       let onMouseMove = function (moveEvt) {
         moveEvt.preventDefault();
 
-        var shift = {
+        let shift = {
           x: startCoords.x - moveEvt.clientX,
           y: startCoords.y - moveEvt.clientY
         };
@@ -63,26 +63,27 @@
         };
 
         let movePin = function (value, min, max) {
-          if (value < min)
+          if (value < min) {
             return min;
-          else if (value > max)
+          } else if (value > max) {
             return max;
-          else
+          } else {
             return value;
-        }
+          }
+        };
 
-        let centerPinX = mapPinMain.clientWidth/2;
+        let centerPinX = mapPinMain.clientWidth / 2;
 
-        mapPinMain.style.top = movePin(mapPinMain.offsetTop - shift.y, PIN_LIMITS_ON_MAP.min - mapPinMain.scrollHeight, PIN_LIMITS_ON_MAP.max - mapPinMain.scrollHeight) + 'px';
-        mapPinMain.style.left = movePin(mapPinMain.offsetLeft - shift.x, window.mapPins.offsetLeft - centerPinX, window.mapPins.offsetWidth - centerPinX) + 'px';
+        mapPinMain.style.top = movePin(mapPinMain.offsetTop - shift.y, PIN_LIMITS_ON_MAP.min - mapPinMain.scrollHeight, PIN_LIMITS_ON_MAP.max - mapPinMain.scrollHeight) + `px`;
+        mapPinMain.style.left = movePin(mapPinMain.offsetLeft - shift.x, window.mapPins.offsetLeft - centerPinX, window.mapPins.offsetWidth - centerPinX) + `px`;
       };
       let onMouseUp = function (upEvt) {
         upEvt.preventDefault();
 
-        document.removeEventListener('mousemove', onMouseMove);
-        document.removeEventListener('mouseup', onMouseUp);
+        document.removeEventListener(`mousemove`, onMouseMove);
+        document.removeEventListener(`mouseup,`, onMouseUp);
 
-        locationPinOnMap(TRANSFORM_ORIGIN_COORDS_PIN_MAP[`bottom_center`]);
+        locationPinOnMap(TRANSFORM_ORIGIN_COORDS_PIN_MAP[`bottomCenter`]);
       };
 
       document.addEventListener(`mousemove`, onMouseMove);
