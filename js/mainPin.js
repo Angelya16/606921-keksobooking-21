@@ -76,14 +76,14 @@
 
         mapPinMain.style.top = movePin(mapPinMain.offsetTop - shift.y, PIN_LIMITS_ON_MAP.min - mapPinMain.scrollHeight, PIN_LIMITS_ON_MAP.max - mapPinMain.scrollHeight) + `px`;
         mapPinMain.style.left = movePin(mapPinMain.offsetLeft - shift.x, window.mapPins.offsetLeft - centerPinX, window.mapPins.offsetWidth - centerPinX) + `px`;
+
+        locationPinOnMap(TRANSFORM_ORIGIN_COORDS_PIN_MAP[`bottomCenter`]);
       };
       let onMouseUp = function (upEvt) {
         upEvt.preventDefault();
 
         document.removeEventListener(`mousemove`, onMouseMove);
         document.removeEventListener(`mouseup,`, onMouseUp);
-
-        locationPinOnMap(TRANSFORM_ORIGIN_COORDS_PIN_MAP[`bottomCenter`]);
       };
 
       document.addEventListener(`mousemove`, onMouseMove);
