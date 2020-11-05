@@ -42,4 +42,5 @@
       y: rndCoordinates[id].y
     }
   }));
+  // window.getAdData = window.getGenerateAd;
 })();

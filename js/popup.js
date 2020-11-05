@@ -59,15 +59,17 @@
       window.mapPins.querySelector(`article`).remove();
     }
 
-    fragmentPopup.appendChild(renderPopup(window.getGenerateAd[num]));
+    fragmentPopup.appendChild(renderPopup(window.getAdData[num]));
     window.mapPins.append(fragmentPopup);
 
     let popupCloseBtn = window.mapPins.querySelector(`.popup__close`);
 
-    const closePopup = () => {
-      document.removeEventListener(`keydown`, closePopup);
-      popupCloseBtn.removeEventListener(`click`, closePopup);
-      window.mapPins.querySelector(`article`).remove();
+    const closePopup = (evt) => {
+      if (evt.key === `Escape` || evt.type === `click`) {
+        document.removeEventListener(`keydown`, closePopup);
+        popupCloseBtn.removeEventListener(`click`, closePopup);
+        window.mapPins.querySelector(`article`).remove();
+      }
     };
 
     document.addEventListener(`keydown`, closePopup);
