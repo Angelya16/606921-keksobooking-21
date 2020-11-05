@@ -1,6 +1,5 @@
 'use strict';
 
-//  __________________ form - валидация и работа формы объявления
 (function () {
   const MIN_TITLE_LENGTH = 30;
   const MAX_TITLE_LENGTH = 100;
@@ -11,11 +10,10 @@
     'bungalow': 0
   };
 
-  let adForm = document.querySelector(`.ad-form`);
+  let adForm = window.adFormGlobal;
   let adFormFieldset = adForm.children;
-  let adAddress = adForm.querySelector(`#address`);
 
-  const adFormDisabled = (boolean) => {
+  window.adFormDisabled = (boolean) => {
     for (let i = 0; i < adFormFieldset.length; i++) {
       adFormFieldset[i].disabled = boolean;
     }
@@ -25,33 +23,7 @@
       adForm.classList.add(`ad-form--disabled`);
     }
   };
-  adFormDisabled(true);
-
-  let mapPinMain = document.querySelector(`.map__pin--main`);
-
-  const coordinatesPin = (num) => {
-    adAddress.value = `${mapPinMain.offsetLeft - mapPinMain.clientWidth / 2}, ${mapPinMain.offsetTop - (mapPinMain.clientHeight / 2) + num}`;
-  };
-  coordinatesPin(0);
-
-  const getStartedMap = () => {
-    adFormDisabled(false);
-    window.map.classList.remove(`map--faded`);
-    coordinatesPin(22);
-    quantityRoomsAndGuests();
-    window.addsPinsMap();
-  };
-
-  mapPinMain.addEventListener(`mousedown`, (evt) => {
-    if (evt.which === 1) {
-      getStartedMap();
-    }
-  });
-  mapPinMain.addEventListener(`keydown`, (evt) => {
-    if (evt.key === `Enter`) {
-      getStartedMap();
-    }
-  });
+  window.adFormDisabled(true);
 
   let titleInput = adForm.querySelector(`#title`);
 

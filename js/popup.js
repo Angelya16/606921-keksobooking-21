@@ -52,8 +52,6 @@
 
   let fragmentPopup = document.createDocumentFragment();
 
-  // let mapPin = window.mapPins.querySelectorAll(`button[class="map__pin"]`);
-
   window.openPopup = (num) => {
     let windowPopup = window.mapPins.querySelector(`article`);
 
