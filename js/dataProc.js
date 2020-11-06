@@ -1,16 +1,36 @@
 'use strict';
 
 (function () {
-  let xhr = new XMLHttpRequest();
+  let URL = `https://21.javascript.pages.academy/keksobooking/data`;
 
-  xhr.responseType = 'json';
+  let StatusCode = {
+    OK: 200
+  };
+  let TIMEOUT_IN_MS = 10000;
 
-  xhr.addEventListener(`load`, () => {
-    // console.log(xhr.status + ` ` + xhr.statusText);
-    window.getAdData = xhr.response;
-  });
+  window.load = (onSuccess, onError) => {
+    let xhr = new XMLHttpRequest();
+    xhr.responseType = 'json';
 
-  xhr.open(`GET`, `https://21.javascript.pages.academy/keksobooking/data`);
+    xhr.addEventListener('load', () => {
+      if (xhr.status === StatusCode.OK) {
+        window.getAdData = xhr.response;
+        onSuccess(window.getAdData);
+      } else {
+        onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+      }
+    });
+    xhr.addEventListener('error', () => {
+      onError('Произошла ошибка соединения');
+    });
+    xhr.addEventListener('timeout', () => {
+      onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
+    });
 
-  xhr.send();
+    xhr.timeout = TIMEOUT_IN_MS;
+
+    xhr.open('GET', URL);
+    xhr.send();
+  };
+
 })();

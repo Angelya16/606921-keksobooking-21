@@ -24,18 +24,23 @@
   };
 
   window.addsPinsMap = () => {
-    let fragment = document.createDocumentFragment();
-    for (let i = 0; i < window.getAdData.length; i++) {
-      fragment.appendChild(renderAdPin(window.getAdData[i]));
-    }
-    window.mapPins.appendChild(fragment);
-    let mapPin = window.mapPins.querySelectorAll(`button[class="map__pin"]`);
-    for (let i = 0; i < mapPin.length; i++) {
-      mapPin[i].addEventListener(`click`, (evt) => {
-        if (evt.which === 1) {
-          window.openPopup(i);
-        }
-      });
-    }
+    window.successHandler = (ads) => {
+      let fragment = document.createDocumentFragment();
+      for (let i = 0; i < ads.length; i++) {
+        fragment.appendChild(renderAdPin(window.getAdData[i]));
+      }
+      window.mapPins.appendChild(fragment);
+
+      let mapPin = window.mapPins.querySelectorAll(`button[class="map__pin"]`);
+      for (let i = 0; i < mapPin.length; i++) {
+        mapPin[i].addEventListener(`click`, (evt) => {
+          if (evt.which === 1) {
+            window.openPopup(i);
+            console.log(mapPin);
+          }
+        });
+      }
+    };
+    window.load(window.successHandler, window.errorHandler);
   };
 })();
