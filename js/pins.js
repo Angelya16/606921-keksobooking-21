@@ -36,7 +36,6 @@
         mapPin[i].addEventListener(`click`, (evt) => {
           if (evt.which === 1) {
             window.openPopup(i);
-            console.log(mapPin);
           }
         });
       }

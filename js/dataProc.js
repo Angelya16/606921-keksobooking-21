@@ -10,26 +10,26 @@
 
   window.load = (onSuccess, onError) => {
     let xhr = new XMLHttpRequest();
-    xhr.responseType = 'json';
+    xhr.responseType = `json`;
 
-    xhr.addEventListener('load', () => {
+    xhr.addEventListener(`load`, () => {
       if (xhr.status === StatusCode.OK) {
         window.getAdData = xhr.response;
         onSuccess(window.getAdData);
       } else {
-        onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        onError(`Статус ответа: ` + xhr.status + ` ` + xhr.statusText);
       }
     });
-    xhr.addEventListener('error', () => {
-      onError('Произошла ошибка соединения');
+    xhr.addEventListener(`error`, () => {
+      onError(`Произошла ошибка соединения`);
     });
-    xhr.addEventListener('timeout', () => {
-      onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
+    xhr.addEventListener(`timeout`, () => {
+      onError(`Запрос не успел выполниться за ` + xhr.timeout + `мс`);
     });
 
     xhr.timeout = TIMEOUT_IN_MS;
 
-    xhr.open('GET', URL);
+    xhr.open(`GET`, URL);
     xhr.send();
   };
 
