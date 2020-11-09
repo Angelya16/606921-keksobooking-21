@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+
   const MIN_TITLE_LENGTH = 30;
   const MAX_TITLE_LENGTH = 100;
   const TYPE_HOMES_MIN_SUM = {
@@ -113,4 +114,17 @@
   };
   quantityRoomsAndGuests();
   roomNumSelect.addEventListener(`change`, quantityRoomsAndGuests);
+
+  // let form = adForm.querySelector('.ad-form');
+  // let form = adForm.querySelector('.ad-form__element--submit');
+  // console.log(form);
+
+  adForm.addEventListener(`submit`, (evt) => {
+    window.upload(new FormData(adForm), () => {
+      // console.log(response);
+    });
+    evt.preventDefault();
+    window.adFormDisabled(false);
+  });
+
 })();
