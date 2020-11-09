@@ -4,8 +4,8 @@
   let mapPinMain = document.querySelector(`.map__pin--main`);
 
   const TRANSFORM_ORIGIN_COORDS_PIN_MAP = {
-    center: 2,
-    bottomCenter: 1
+    center: 0,
+    bottomCenter: 47.5
   };
 
   const PIN_LIMITS_ON_MAP = {
@@ -13,35 +13,45 @@
     max: 630
   };
 
-  let isActiveMap = false;
+  const START_LOCATION_PIN = {
+    coordX: 570,
+    coordY: 375
+  };
+
+  window.isActiveMap = false;
 
   window.adFormGlobal = document.querySelector(`.ad-form`);
   let adAddress = window.adFormGlobal.querySelector(`#address`);
 
-  let coordsPinMap = {
-    pinCoordsX: 0,
-    pinCoordsY: 0
-  };
-
-  const locationPinOnMap = (num) => {
-    coordsPinMap.pinCoordsX = Math.round(mapPinMain.offsetLeft + mapPinMain.clientWidth / 2);
-    coordsPinMap.pinCoordsY = Math.round(mapPinMain.offsetTop + mapPinMain.scrollHeight / num);
-    adAddress.value = `${coordsPinMap.pinCoordsX}, ${coordsPinMap.pinCoordsY}`;
+  let locationPinOnMap = (num) => {
+    let pinCoordsX = Math.round(mapPinMain.offsetLeft + mapPinMain.clientWidth / 2);
+    let pinCoordsY = Math.round(mapPinMain.offsetTop + mapPinMain.clientHeight / 2 + num);
+    adAddress.value = `${pinCoordsX}, ${pinCoordsY}`;
   };
 
   locationPinOnMap(TRANSFORM_ORIGIN_COORDS_PIN_MAP.center);
 
-  const getStartedMap = () => {
-    window.adFormDisabled(false);
-    window.map.classList.remove(`map--faded`);
+  window.getStartedMap = () => {
+    window.mapAndFormDisabled(false);
     locationPinOnMap(TRANSFORM_ORIGIN_COORDS_PIN_MAP.bottomCenter);
+    window.isActiveMap = true;
     window.addsPinsMap();
-    isActiveMap = true;
+    window.map.classList.remove(`map--faded`);
+  };
+
+  window.getEndedMap = () => {
+    mapPinMain.style.left = START_LOCATION_PIN.coordX + `px`;
+    mapPinMain.style.top = START_LOCATION_PIN.coordY + `px`;
+    locationPinOnMap(TRANSFORM_ORIGIN_COORDS_PIN_MAP.center);
+    window.mapAndFormDisabled(true);
+    window.isActiveMap = false;
+    window.removesPinsMap();
+    window.map.classList.add(`map--faded`);
   };
 
   mapPinMain.addEventListener(`mousedown`, (evt) => {
-    if (evt.which === 1 && !isActiveMap) {
-      getStartedMap();
+    if (evt.which === 1 && !window.isActiveMap) {
+      window.getStartedMap();
     }
     if (evt.which === 1) {
       let startCoords = {
@@ -77,8 +87,9 @@
         mapPinMain.style.top = movePin(mapPinMain.offsetTop - shift.y, PIN_LIMITS_ON_MAP.min - mapPinMain.scrollHeight, PIN_LIMITS_ON_MAP.max - mapPinMain.scrollHeight) + `px`;
         mapPinMain.style.left = movePin(mapPinMain.offsetLeft - shift.x, (window.mapPins.offsetLeft - centerPinX) - 1, (window.mapPins.offsetWidth - centerPinX) - 1) + `px`;
 
-        locationPinOnMap(TRANSFORM_ORIGIN_COORDS_PIN_MAP[`bottomCenter`]);
+        locationPinOnMap(TRANSFORM_ORIGIN_COORDS_PIN_MAP.bottomCenter);
       };
+
       let onMouseUp = function (upEvt) {
         upEvt.preventDefault();
 
@@ -90,9 +101,11 @@
       document.addEventListener(`mouseup`, onMouseUp);
     }
   });
+
+
   mapPinMain.addEventListener(`keydown`, (evt) => {
     if (evt.key === `Enter`) {
-      getStartedMap();
+      window.getStartedMap();
     }
   });
 })();

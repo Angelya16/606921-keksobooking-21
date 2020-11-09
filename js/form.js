@@ -13,8 +13,32 @@
 
   let adForm = window.adFormGlobal;
   let adFormFieldset = adForm.children;
+  let descriptionHome = adForm.querySelector(`#description`);
+  let featuresHomes = adForm.querySelectorAll(`input[name="features"]`);
+  let fieldUser = adForm.querySelector(`.ad-form__field`);
 
-  window.adFormDisabled = (boolean) => {
+  // fieldUser.addEventListener(`change`, (evt) => {
+  //   // console.log(evt.target.files);
+  //   let file = evt.target.files; // FileList object
+  //   let f = file[0];
+  //   // Only process image files.
+  //   if (!f.type.match('image.*')) {
+  //       alert("Image only please....");
+  //   }
+  //   var reader = new FileReader();
+  //   // Closure to capture the file information.
+  //   reader.onload = ((theFile) => {
+  //       return (e) => {
+  //           // Render thumbnail.
+  //           let avatarPreview = adForm.querySelector(`.ad-form-header__preview`);
+  //           avatarPreview.innerHTML = ['<img src="', e.target.result, '" />'].join('');
+  //       };
+  //   })(f);
+  //   // Read in the image file as a data URL.
+  //   reader.readAsDataURL(f);
+  // });
+
+  window.mapAndFormDisabled = (boolean) => {
     for (let i = 0; i < adFormFieldset.length; i++) {
       adFormFieldset[i].disabled = boolean;
     }
@@ -24,7 +48,6 @@
       adForm.classList.add(`ad-form--disabled`);
     }
   };
-  window.adFormDisabled(true);
 
   let titleInput = adForm.querySelector(`#title`);
 
@@ -112,19 +135,34 @@
       }
     }
   };
-  quantityRoomsAndGuests();
+  // console.log(featuresHomes);
+  const startValuesForm = () => {
+    titleInput.value = ``;
+    typeHomeSelect.selectedIndex = 1;
+    priceInput.placeholder = 5000;
+    priceInput.value = ``;
+    timeinSelect.selectedIndex = timeoutSelect.selectedIndex = 0;
+    roomNumSelect.value = 1;
+    quantityRoomsAndGuests();
+    window.mapAndFormDisabled(true);
+    for (let i = 0; i < featuresHomes.length; i++) {
+      featuresHomes[i].checked = false;
+    }
+    descriptionHome.value = ``;
+    window.controlPopup();
+  };
+
+  startValuesForm();
+
   roomNumSelect.addEventListener(`change`, quantityRoomsAndGuests);
 
-  // let form = adForm.querySelector('.ad-form');
-  // let form = adForm.querySelector('.ad-form__element--submit');
-  // console.log(form);
-
   adForm.addEventListener(`submit`, (evt) => {
-    window.upload(new FormData(adForm), () => {
-      // console.log(response);
+    window.upload(new FormData(adForm), (response) => {
+      console.log(response, adForm);
+      window.getEndedMap();
+      startValuesForm();
     });
     evt.preventDefault();
-    window.adFormDisabled(false);
   });
 
 })();
