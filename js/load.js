@@ -6,6 +6,7 @@
   let StatusCode = {
     OK: 200
   };
+
   let TIMEOUT_IN_MS = 10000;
 
   window.load = (onSuccess, onError) => {

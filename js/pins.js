@@ -37,7 +37,7 @@
   };
 
   window.addsPinsMap = () => {
-    window.successHandler = (ads) => {
+    window.successHandlerPin = (ads) => {
       let fragment = document.createDocumentFragment();
       for (let i = 0; i < ads.length; i++) {
         fragment.appendChild(renderAdPin(window.getAdData[i]));
@@ -45,7 +45,7 @@
       window.mapPins.appendChild(fragment);
       controlPins(`add`);
     };
-    window.load(window.successHandler, window.errorHandler);
+    window.load(window.successHandlerPin, window.errorHandler);
   };
 
   window.removesPinsMap = () => {

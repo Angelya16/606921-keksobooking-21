@@ -13,30 +13,8 @@
 
   let adForm = window.adFormGlobal;
   let adFormFieldset = adForm.children;
-  let descriptionHome = adForm.querySelector(`#description`);
-  let featuresHomes = adForm.querySelectorAll(`input[name="features"]`);
-  let fieldUser = adForm.querySelector(`.ad-form__field`);
-
-  // fieldUser.addEventListener(`change`, (evt) => {
-  //   // console.log(evt.target.files);
-  //   let file = evt.target.files; // FileList object
-  //   let f = file[0];
-  //   // Only process image files.
-  //   if (!f.type.match('image.*')) {
-  //       alert("Image only please....");
-  //   }
-  //   var reader = new FileReader();
-  //   // Closure to capture the file information.
-  //   reader.onload = ((theFile) => {
-  //       return (e) => {
-  //           // Render thumbnail.
-  //           let avatarPreview = adForm.querySelector(`.ad-form-header__preview`);
-  //           avatarPreview.innerHTML = ['<img src="', e.target.result, '" />'].join('');
-  //       };
-  //   })(f);
-  //   // Read in the image file as a data URL.
-  //   reader.readAsDataURL(f);
-  // });
+  let fieldUser = adForm.querySelector(`#avatar`);
+  let clearFormBtn = adForm.querySelector(`.ad-form__reset`);
 
   window.mapAndFormDisabled = (boolean) => {
     for (let i = 0; i < adFormFieldset.length; i++) {
@@ -48,6 +26,7 @@
       adForm.classList.add(`ad-form--disabled`);
     }
   };
+  window.mapAndFormDisabled(true);
 
   let titleInput = adForm.querySelector(`#title`);
 
@@ -64,6 +43,7 @@
 
     titleInput.reportValidity();
   });
+
 
   let priceInput = adForm.querySelector(`#price`);
   let typeHomeSelect = adForm.querySelector(`#type`);
@@ -93,7 +73,8 @@
     choiceTypeHome();
   });
 
-  priceInput.addEventListener(`input`, choiceTypeHome);
+  priceInput.addEventListener(`click`, choiceTypeHome);
+
 
   let timeinSelect = adForm.querySelector(`#timein`);
   let timeoutSelect = adForm.querySelector(`#timeout`);
@@ -106,6 +87,7 @@
 
   timeinSelect.addEventListener(`change`, choiceTime);
   timeoutSelect.addEventListener(`change`, choiceTime);
+
 
   let roomNumSelect = adForm.querySelector(`#room_number`);
   let capacitySelect = adForm.querySelector(`#capacity`);
@@ -135,34 +117,34 @@
       }
     }
   };
-  // console.log(featuresHomes);
-  const startValuesForm = () => {
-    titleInput.value = ``;
-    typeHomeSelect.selectedIndex = 1;
+
+
+  const startValuesForm = (evt) => {
+    try {
+    evt.preventDefault();
+   }
+   catch  {}
+
+    adForm.reset();
     priceInput.placeholder = 5000;
-    priceInput.value = ``;
-    timeinSelect.selectedIndex = timeoutSelect.selectedIndex = 0;
-    roomNumSelect.value = 1;
     quantityRoomsAndGuests();
-    window.mapAndFormDisabled(true);
-    for (let i = 0; i < featuresHomes.length; i++) {
-      featuresHomes[i].checked = false;
-    }
-    descriptionHome.value = ``;
     window.controlPopup();
+    window.startPosMainPin();
   };
 
   startValuesForm();
 
   roomNumSelect.addEventListener(`change`, quantityRoomsAndGuests);
 
+  clearFormBtn.addEventListener(`click`, startValuesForm);
+
   adForm.addEventListener(`submit`, (evt) => {
     window.upload(new FormData(adForm), (response) => {
-      console.log(response, adForm);
-      window.getEndedMap();
-      startValuesForm();
+      console.log(response);
+      console.log(fieldUser.files);
     });
-    evt.preventDefault();
+    startValuesForm(evt);
+    window.getEndedMap();
   });
 
 })();

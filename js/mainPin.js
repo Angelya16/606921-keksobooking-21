@@ -31,18 +31,29 @@
 
   locationPinOnMap(TRANSFORM_ORIGIN_COORDS_PIN_MAP.center);
 
-  window.getStartedMap = () => {
-    window.mapAndFormDisabled(false);
-    locationPinOnMap(TRANSFORM_ORIGIN_COORDS_PIN_MAP.bottomCenter);
-    window.isActiveMap = true;
-    window.addsPinsMap();
-    window.map.classList.remove(`map--faded`);
+  window.startPosMainPin = () => {
+    mapPinMain.style.left = START_LOCATION_PIN.coordX + `px`;
+    mapPinMain.style.top = START_LOCATION_PIN.coordY + `px`;
+    if (!window.isActiveMap) {
+      locationPinOnMap(TRANSFORM_ORIGIN_COORDS_PIN_MAP.center);
+    } else {
+      locationPinOnMap(TRANSFORM_ORIGIN_COORDS_PIN_MAP.bottomCenter);
+    }
+  };
+
+  let getStartedMap = (evt) => {
+    if ((evt.which === 1 || evt.key === `Enter`) && !window.isActiveMap) {
+      locationPinOnMap(TRANSFORM_ORIGIN_COORDS_PIN_MAP.bottomCenter);
+      window.map.classList.remove(`map--faded`);
+      window.mapAndFormDisabled(false);
+    }
+    if ((evt.type === `mouseup` || evt.key === `Enter`) && !window.isActiveMap) {
+      window.addsPinsMap();
+      window.isActiveMap = true;
+    }
   };
 
   window.getEndedMap = () => {
-    mapPinMain.style.left = START_LOCATION_PIN.coordX + `px`;
-    mapPinMain.style.top = START_LOCATION_PIN.coordY + `px`;
-    locationPinOnMap(TRANSFORM_ORIGIN_COORDS_PIN_MAP.center);
     window.mapAndFormDisabled(true);
     window.isActiveMap = false;
     window.removesPinsMap();
@@ -50,9 +61,9 @@
   };
 
   mapPinMain.addEventListener(`mousedown`, (evt) => {
-    if (evt.which === 1 && !window.isActiveMap) {
-      window.getStartedMap();
-    }
+
+    getStartedMap(evt);
+
     if (evt.which === 1) {
       let startCoords = {
         x: evt.clientX,
@@ -104,8 +115,11 @@
 
 
   mapPinMain.addEventListener(`keydown`, (evt) => {
-    if (evt.key === `Enter`) {
-      window.getStartedMap();
-    }
+    getStartedMap(evt);
   });
+
+  mapPinMain.addEventListener(`mouseup`, (evt) => {
+    getStartedMap(evt);
+  });
+
 })();
