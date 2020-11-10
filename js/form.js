@@ -73,7 +73,7 @@
     choiceTypeHome();
   });
 
-  priceInput.addEventListener(`click`, choiceTypeHome);
+  priceInput.addEventListener(`input`, choiceTypeHome);
 
 
   let timeinSelect = adForm.querySelector(`#timein`);
@@ -121,9 +121,11 @@
 
   const startValuesForm = (evt) => {
     try {
-    evt.preventDefault();
-   }
-   catch  {}
+      evt.preventDefault();
+      if (evt.type === `submit`) {
+        window.getEndedMap();
+      }
+    } catch {}
 
     adForm.reset();
     priceInput.placeholder = 5000;
@@ -138,13 +140,7 @@
 
   clearFormBtn.addEventListener(`click`, startValuesForm);
 
-  adForm.addEventListener(`submit`, (evt) => {
-    window.upload(new FormData(adForm), (response) => {
-      console.log(response);
-      console.log(fieldUser.files);
-    });
-    startValuesForm(evt);
-    window.getEndedMap();
+  adForm.addEventListener(`submit`, () => {
+    window.upload(new FormData(adForm), startValuesForm);
   });
-
 })();
