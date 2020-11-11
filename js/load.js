@@ -10,6 +10,7 @@
   let TIMEOUT_IN_MS = 10000;
 
   window.load = (onSuccess, onError) => {
+
     let xhr = new XMLHttpRequest();
     xhr.responseType = `json`;
 
@@ -21,9 +22,11 @@
         onError(`Статус ответа: ` + xhr.status + ` ` + xhr.statusText);
       }
     });
+
     xhr.addEventListener(`error`, () => {
       onError(`Произошла ошибка соединения`);
     });
+
     xhr.addEventListener(`timeout`, () => {
       onError(`Запрос не успел выполниться за ` + xhr.timeout + `мс`);
     });

@@ -119,11 +119,14 @@
   };
 
 
-  const startValuesForm = (evt) => {
+  window.startValuesForm = (evt) => {
     try {
       evt.preventDefault();
       if (evt.type === `submit`) {
         window.getEndedMap();
+        if (!window.sendAdData) {
+          window.sendAdData = true;
+        }
       }
     } catch {}
 
@@ -132,15 +135,19 @@
     quantityRoomsAndGuests();
     window.controlPopup();
     window.startPosMainPin();
+
+    window.sendAdData = false;
   };
 
-  startValuesForm();
+  window.startValuesForm();
 
   roomNumSelect.addEventListener(`change`, quantityRoomsAndGuests);
 
-  clearFormBtn.addEventListener(`click`, startValuesForm);
 
-  adForm.addEventListener(`submit`, () => {
-    window.upload(new FormData(adForm), startValuesForm);
+  clearFormBtn.addEventListener(`click`, window.startValuesForm);
+
+  adForm.addEventListener(`submit`, (evt) => {
+    window.upload(new FormData(adForm), window.startValuesForm);
+    evt.preventDefault();
   });
 })();

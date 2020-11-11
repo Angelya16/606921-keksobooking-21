@@ -2,6 +2,7 @@
 
 (function () {
   window.getAdData = [];
+  window.sendAdData = false;
 
   let errorTemplate = document.querySelector(`#error`).content;
 
