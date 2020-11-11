@@ -46,6 +46,7 @@
       locationPinOnMap(TRANSFORM_ORIGIN_COORDS_PIN_MAP.bottomCenter);
       window.map.classList.remove(`map--faded`);
       window.mapAndFormDisabled(false);
+      window.sendAdData = false;
     }
     if ((evt.type === `mouseup` || evt.key === `Enter`) && !window.isActiveMap) {
       window.addsPinsMap();

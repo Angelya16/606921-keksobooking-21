@@ -120,23 +120,20 @@
 
 
   window.startValuesForm = (evt) => {
-    try {
+    if (window.isActiveMap) {
       evt.preventDefault();
       if (evt.type === `submit`) {
+        console.log(3);
         window.getEndedMap();
-        if (!window.sendAdData) {
-          window.sendAdData = true;
-        }
+        window.sendAdData = true;
       }
-    } catch {}
+    }
 
     adForm.reset();
     priceInput.placeholder = 5000;
     quantityRoomsAndGuests();
     window.controlPopup();
     window.startPosMainPin();
-
-    window.sendAdData = false;
   };
 
   window.startValuesForm();
@@ -147,7 +144,13 @@
   clearFormBtn.addEventListener(`click`, window.startValuesForm);
 
   adForm.addEventListener(`submit`, (evt) => {
-    window.upload(new FormData(adForm), window.startValuesForm);
+    window.upload(new FormData(adForm), () => {
+      window.startValuesForm(evt);
+    });
     evt.preventDefault();
+    console.log(window.isActiveMap, window.sendAdData);
+    if (window.isActiveMap && window.sendAdData) {
+      window.errorHandler(`что-то пошло не так`);
+    }
   });
 })();
