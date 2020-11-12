@@ -23,23 +23,33 @@
     return adElement;
   };
 
+  let controlPins = (value) => {
+    let mapPin = window.mapPins.querySelectorAll(`button[class="map__pin"]`);
+    for (let i = 0; i < mapPin.length; i++) {
+      if (value === `add`) {
+        mapPin[i].addEventListener(`click`, () => {
+          window.openPopup(i);
+        });
+      } else {
+        mapPin[i].remove();
+      }
+    }
+  };
+
   window.addsPinsMap = () => {
-    window.successHandler = (ads) => {
+    window.successHandlerPin = (ads) => {
       let fragment = document.createDocumentFragment();
       for (let i = 0; i < ads.length; i++) {
         fragment.appendChild(renderAdPin(window.getAdData[i]));
       }
       window.mapPins.appendChild(fragment);
-
-      let mapPin = window.mapPins.querySelectorAll(`button[class="map__pin"]`);
-      for (let i = 0; i < mapPin.length; i++) {
-        mapPin[i].addEventListener(`click`, (evt) => {
-          if (evt.which === 1) {
-            window.openPopup(i);
-          }
-        });
-      }
+      controlPins(`add`);
     };
-    window.load(window.successHandler, window.errorHandler);
+    window.load(window.successHandlerPin, window.errorHandler);
   };
+
+  window.removesPinsMap = () => {
+    controlPins(`remove`);
+  };
+
 })();

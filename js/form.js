@@ -13,8 +13,9 @@
 
   let adForm = window.adFormGlobal;
   let adFormFieldset = adForm.children;
+  let clearFormBtn = adForm.querySelector(`.ad-form__reset`);
 
-  window.adFormDisabled = (boolean) => {
+  window.mapAndFormDisabled = (boolean) => {
     for (let i = 0; i < adFormFieldset.length; i++) {
       adFormFieldset[i].disabled = boolean;
     }
@@ -24,7 +25,7 @@
       adForm.classList.add(`ad-form--disabled`);
     }
   };
-  window.adFormDisabled(true);
+  window.mapAndFormDisabled(true);
 
   let titleInput = adForm.querySelector(`#title`);
 
@@ -41,6 +42,7 @@
 
     titleInput.reportValidity();
   });
+
 
   let priceInput = adForm.querySelector(`#price`);
   let typeHomeSelect = adForm.querySelector(`#type`);
@@ -72,6 +74,7 @@
 
   priceInput.addEventListener(`input`, choiceTypeHome);
 
+
   let timeinSelect = adForm.querySelector(`#timein`);
   let timeoutSelect = adForm.querySelector(`#timeout`);
 
@@ -83,6 +86,7 @@
 
   timeinSelect.addEventListener(`change`, choiceTime);
   timeoutSelect.addEventListener(`change`, choiceTime);
+
 
   let roomNumSelect = adForm.querySelector(`#room_number`);
   let capacitySelect = adForm.querySelector(`#capacity`);
@@ -112,19 +116,37 @@
       }
     }
   };
-  quantityRoomsAndGuests();
+
+
+  window.startValuesForm = (evt) => {
+    if (window.isActiveMap) {
+      evt.preventDefault();
+      if (evt.type === `submit`) {
+        window.getEndedMap();
+      }
+    }
+
+    adForm.reset();
+    priceInput.placeholder = 5000;
+    quantityRoomsAndGuests();
+    window.controlPopup();
+    window.startPosMainPin();
+    window.callFromUpload = false;
+  };
+
+  window.startValuesForm();
+
   roomNumSelect.addEventListener(`change`, quantityRoomsAndGuests);
 
-  // let form = adForm.querySelector('.ad-form');
-  // let form = adForm.querySelector('.ad-form__element--submit');
-  // console.log(form);
+
+  clearFormBtn.addEventListener(`click`, window.startValuesForm);
 
   adForm.addEventListener(`submit`, (evt) => {
+    window.callFromUpload = true;
     window.upload(new FormData(adForm), () => {
-      // console.log(response);
+      window.startValuesForm(evt);
+      window.succesHandler();
     });
     evt.preventDefault();
-    window.adFormDisabled(false);
   });
-
 })();
