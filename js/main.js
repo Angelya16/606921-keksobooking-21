@@ -2,7 +2,7 @@
 
 (function () {
   window.getAdData = [];
-  window.sendAdData = false;
+  window.callFromUpload = false;
 
   let errorTemplate = document.querySelector(`#error`).content;
 
@@ -23,7 +23,14 @@
     };
 
     let reloadData = (evt) => {
-      window.load(window.successHandlerPin, window.errorHandler);
+      if (!window.callFromUpload) {
+        window.load(window.successHandlerPin, window.errorHandler);
+      } else {
+        window.upload(new FormData(window.adFormGlobal), () => {
+          window.startValuesForm(evt);
+          window.succesHandler();
+        });
+      }
       closeErrorWindow(evt);
     };
 
@@ -32,6 +39,21 @@
     document.addEventListener(`click`, closeErrorWindow);
   };
 
-  // let succesTemplate = document.querySelector(`#success`).content;
+  let succesTemplate = document.querySelector(`#success`).content;
 
+  window.succesHandler = () => {
+    let succesWindow = succesTemplate.cloneNode(true);
+    document.body.appendChild(succesWindow);
+
+    let closeSuccesWindow = (evt) => {
+      if (evt.type === `click` || evt.key === `Escape`) {
+        document.querySelector(`.success`).remove();
+        document.removeEventListener(`click`, closeSuccesWindow);
+        document.removeEventListener(`keydown`, closeSuccesWindow);
+      }
+    };
+
+    document.addEventListener(`keydown`, closeSuccesWindow);
+    document.addEventListener(`click`, closeSuccesWindow);
+  };
 })();

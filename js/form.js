@@ -13,7 +13,6 @@
 
   let adForm = window.adFormGlobal;
   let adFormFieldset = adForm.children;
-  let fieldUser = adForm.querySelector(`#avatar`);
   let clearFormBtn = adForm.querySelector(`.ad-form__reset`);
 
   window.mapAndFormDisabled = (boolean) => {
@@ -123,9 +122,7 @@
     if (window.isActiveMap) {
       evt.preventDefault();
       if (evt.type === `submit`) {
-        console.log(3);
         window.getEndedMap();
-        window.sendAdData = true;
       }
     }
 
@@ -134,6 +131,7 @@
     quantityRoomsAndGuests();
     window.controlPopup();
     window.startPosMainPin();
+    window.callFromUpload = false;
   };
 
   window.startValuesForm();
@@ -144,13 +142,11 @@
   clearFormBtn.addEventListener(`click`, window.startValuesForm);
 
   adForm.addEventListener(`submit`, (evt) => {
+    window.callFromUpload = true;
     window.upload(new FormData(adForm), () => {
       window.startValuesForm(evt);
+      window.succesHandler();
     });
     evt.preventDefault();
-    console.log(window.isActiveMap, window.sendAdData);
-    if (window.isActiveMap && window.sendAdData) {
-      window.errorHandler(`что-то пошло не так`);
-    }
   });
 })();
