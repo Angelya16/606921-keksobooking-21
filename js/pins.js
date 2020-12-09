@@ -5,6 +5,7 @@
     w: 50,
     h: 70
   };
+
   let mapPinTemplate = document.querySelector(`#pin`).content;
   window.mapPins = document.querySelector(`.map__pins`);
 
@@ -36,10 +37,15 @@
     }
   };
 
+// let baseOfAds = [];
+window.baseOfAds = [];
+
   window.addsPinsMap = () => {
-    window.successHandlerPin = (ads) => {
+    window.successHandlerPin = (data) => {
+      // baseOfAds = ads;
+      window.baseOfAds = data;
       let fragment = document.createDocumentFragment();
-      for (let i = 0; i < ads.length; i++) {
+      for (let i = 0; i < window.baseOfAds.length; i++) {
         fragment.appendChild(renderAdPin(window.getAdData[i]));
       }
       window.mapPins.appendChild(fragment);
