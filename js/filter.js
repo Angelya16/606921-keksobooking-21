@@ -59,17 +59,23 @@
         }
       }
 
-      if (nameInput == `housing-features`) {
-        let featuresInput = housingFeaturesBtn.querySelectorAll(`input`);
-        for (let j = 0; j < featuresInput.length; j++) {
-          //   if (window.baseOfAds[i].offer.features[j] === housingTypeBtn.value || housingTypeBtn.value === `any`) {
-          //     console.log(window.baseOfAds[i].offer.features);
-          //   }
+      console.log(window.baseOfAds[i].offer.features.find("wifi"));
 
-          console.log(featuresInput);
-          // console.log(featuresInput[j].checked);
+      // if (nameInput == `housing-features`) {
+      //   let featuresInput = housingFeaturesBtn.querySelectorAll(`input`);
+      //   for (let j = 0; j < featuresInput.length; j++) {
+      //     if (window.baseOfAds[i].offer.features[j] === featuresInput.value) {
+      //       console.log(window.baseOfAds[i].offer.features);
+      //     }
+      //     // console.log(featuresInput);
+      //   }
+      // }
+      let featuresInput = housingFeaturesBtn.querySelectorAll(`input`);
+      for (let j = 0; j < featuresInput.length; j++) {
+        if (featuresInput[j].checked === true) {
+          // console.log(featuresInput[j].value);
+          // console.log(window.baseOfAds[i].offer.features[j]);
         }
-
       }
 
     }
