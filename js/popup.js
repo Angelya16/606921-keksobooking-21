@@ -58,7 +58,7 @@
       window.mapPins.querySelector(`article`).remove();
     }
     if (value === `ad`) {
-      fragmentPopup.appendChild(renderPopup(window.getAdData[num]));
+      fragmentPopup.appendChild(renderPopup(window.filterAds[num]));
       window.mapPins.append(fragmentPopup);
     }
   };

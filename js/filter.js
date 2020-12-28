@@ -7,6 +7,13 @@
   const housingGuestsBtn = document.querySelector(`#housing-guests`);
   const housingFeaturesBtn = document.querySelector(`#housing-features`);
 
+  window.filters = {
+    typeBtn: housingTypeBtn,
+    priceBtn: housingPriceBtn,
+    roomsBtn: housingRoomsBtn,
+    guestsBtn: housingGuestsBtn
+  };
+
   const PRICE_CRITERIA = {
     'any': {
       'min': 0,
@@ -24,71 +31,31 @@
       'min': 50000,
       'max': Infinity
     }
-  }
+  };
 
-  const filterAd = (evt) => {
+  window.criteriaPrice = PRICE_CRITERIA;
 
-    let nameInput = evt.target.parentElement.id || evt.target.id;
+  const filterAd = () => {
 
-    for (let i = 0; i < window.baseOfAds.length; i++) {
+    const featuresInput = housingFeaturesBtn.querySelectorAll(`input`);
 
-      if (nameInput == `housing-type`) {
-        if (window.baseOfAds[i].offer.type === housingTypeBtn.value || housingTypeBtn.value === `any`) {
-          console.log(window.baseOfAds[i].offer.type, i);
-        }
+    window.featuresAd = [];
+
+    for (let i = 0; i < featuresInput.length; i++) {
+      if (featuresInput[i].checked) {
+        window.featuresAd.push(featuresInput[i].value);
       }
-
-      if (nameInput == `housing-price`) {
-        let maxPrice = PRICE_CRITERIA[housingPriceBtn.value].max;
-        let minPrice = PRICE_CRITERIA[housingPriceBtn.value].min;
-
-        if (window.baseOfAds[i].offer.price >= minPrice && window.baseOfAds[i].offer.price <= maxPrice) {
-          console.log(window.baseOfAds[i].offer.price, i);
-        }
-      }
-
-      if (nameInput == `housing-rooms`) {
-        if (window.baseOfAds[i].offer.rooms === +housingRoomsBtn.value || housingRoomsBtn.value === `any`) {
-          console.log(window.baseOfAds[i].offer.rooms, i);
-        }
-      }
-
-      if (nameInput == `housing-guests`) {
-        if (window.baseOfAds[i].offer.guests === +housingGuestsBtn.value || housingGuestsBtn.value === `any`) {
-          console.log(window.baseOfAds[i].offer.guests, i);
-        }
-      }
-
-      console.log(window.baseOfAds[i].offer.features.find("wifi"));
-
-      // if (nameInput == `housing-features`) {
-      //   let featuresInput = housingFeaturesBtn.querySelectorAll(`input`);
-      //   for (let j = 0; j < featuresInput.length; j++) {
-      //     if (window.baseOfAds[i].offer.features[j] === featuresInput.value) {
-      //       console.log(window.baseOfAds[i].offer.features);
-      //     }
-      //     // console.log(featuresInput);
-      //   }
-      // }
-      let featuresInput = housingFeaturesBtn.querySelectorAll(`input`);
-      for (let j = 0; j < featuresInput.length; j++) {
-        if (featuresInput[j].checked === true) {
-          // console.log(featuresInput[j].value);
-          // console.log(window.baseOfAds[i].offer.features[j]);
-        }
-      }
-
     }
-    // console.log(housingTypeBtn.value, housingPriceBtn.value, housingRoomsBtn.value, housingGuestsBtn.value);
-    // housingFeaturesBtn
-  }
+
+    window.controlPopup(0);
+    window.updatePins();
+  };
+
+  window.resultfilterAd = filterAd;
 
   housingTypeBtn.addEventListener(`input`, filterAd);
   housingPriceBtn.addEventListener(`input`, filterAd);
   housingRoomsBtn.addEventListener(`input`, filterAd);
   housingGuestsBtn.addEventListener(`input`, filterAd);
   housingFeaturesBtn.addEventListener(`input`, filterAd);
-
-
-  // console.log(housingTypeBtn.value, housingPriceBtn.value, housingRoomsBtn.value, housingGuestsBtn.value, housingFeaturesBtn)
 })();
