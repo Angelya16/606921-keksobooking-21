@@ -4,6 +4,14 @@
   window.getAdData = [];
   window.callFromUpload = false;
 
+  window.map = document.querySelector(`.map`);
+  window.mapFiltersCont = document.querySelector(`.map__filters-container`);
+
+  window.mapFiltersContShow = (attribute) => {
+    window.mapFiltersCont.style.display = attribute;
+  };
+  window.mapFiltersContShow(`none`);
+
   let errorTemplate = document.querySelector(`#error`).content;
 
   window.errorHandler = (errorMessage) => {

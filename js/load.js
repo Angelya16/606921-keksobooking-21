@@ -18,17 +18,22 @@
       if (xhr.status === StatusCode.OK) {
         window.getAdData = xhr.response;
         onSuccess(window.getAdData);
+        window.callFromLoad = true;
+        window.mapFiltersContShow(`block`);
       } else {
         onError(`Статус ответа: ` + xhr.status + ` ` + xhr.statusText);
+        window.mapFiltersContShow(`none`);
       }
     });
 
     xhr.addEventListener(`error`, () => {
       onError(`Произошла ошибка соединения`);
+      window.mapFiltersContShow(`none`);
     });
 
     xhr.addEventListener(`timeout`, () => {
       onError(`Запрос не успел выполниться за ` + xhr.timeout + `мс`);
+      window.mapFiltersContShow(`none`);
     });
 
     xhr.timeout = TIMEOUT_IN_MS;

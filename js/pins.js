@@ -94,7 +94,9 @@
   window.addsPinsMap = () => {
     window.successHandlerPin = (data) => {
       window.baseOfAds = data;
-      window.resultfilterAd();
+      if (data !== []) {
+        window.resultfilterAd();
+      }
     };
     window.load(window.successHandlerPin, window.errorHandler);
   };

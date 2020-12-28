@@ -4,8 +4,6 @@
   const TYPE_HOMES = [`palace`, `flat`, `house`, `bungalow`];
   const CHECK_TIMES = [`12:00`, `13:00`, `14:00`];
 
-  window.map = document.querySelector(`.map`);
-
   const random = (min, max) => Math.floor(Math.random() * (max - min) + min);
 
   let rndCoordinates = [...Array(8).keys()].map(() => ({
