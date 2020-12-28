@@ -48,14 +48,17 @@
     }
 
     window.controlPopup(0);
+    // window.debounce(window.updatePins());
     window.updatePins();
   };
 
   window.resultfilterAd = filterAd;
 
-  housingTypeBtn.addEventListener(`input`, filterAd);
-  housingPriceBtn.addEventListener(`input`, filterAd);
-  housingRoomsBtn.addEventListener(`input`, filterAd);
-  housingGuestsBtn.addEventListener(`input`, filterAd);
-  housingFeaturesBtn.addEventListener(`input`, filterAd);
+  const debounceFilterAds = window.debounce(filterAd);
+
+  housingTypeBtn.addEventListener(`input`, debounceFilterAds);
+  housingPriceBtn.addEventListener(`input`, debounceFilterAds);
+  housingRoomsBtn.addEventListener(`input`, debounceFilterAds);
+  housingGuestsBtn.addEventListener(`input`, debounceFilterAds);
+  housingFeaturesBtn.addEventListener(`input`, debounceFilterAds);
 })();

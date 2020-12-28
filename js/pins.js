@@ -56,7 +56,7 @@
     controlPins(`add`);
   };
 
-  window.updatePins = window.debounce(() => {
+  window.updatePins = () => {
     let baseOfFilterAds = window.baseOfAds.filter((ad) => {
       let maxPrice = window.criteriaPrice[window.filters.priceBtn.value].max;
       let minPrice = window.criteriaPrice[window.filters.priceBtn.value].min;
@@ -89,7 +89,7 @@
 
     window.showPins(baseOfFilterAds);
     window.filterAds = baseOfFilterAds;
-  });
+  };
 
   window.addsPinsMap = () => {
     window.successHandlerPin = (data) => {
