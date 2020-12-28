@@ -86,6 +86,7 @@
       return (ad.offer.type === window.filters.typeBtn.value || window.filters.typeBtn.value === `any`) && (ad.offer.rooms === +window.filters.roomsBtn.value || window.filters.roomsBtn.value === `any`) && (ad.offer.guests === +window.filters.guestsBtn.value || window.filters.guestsBtn.value === `any`) && (ad.offer.price >= minPrice && ad.offer.price <= maxPrice) && (receivedAdBase !== -1 && receivedAdBase === ad.offer.features);
 
     });
+
     window.showPins(baseOfFilterAds);
     window.filterAds = baseOfFilterAds;
   };
