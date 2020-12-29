@@ -5,12 +5,23 @@
   window.callFromUpload = false;
 
   window.map = document.querySelector(`.map`);
-  window.mapFiltersCont = document.querySelector(`.map__filters-container`);
+  const mapFilters = document.querySelector(`.map__filters`).children;
+  // const mapFeatures = document.querySelector(`.map__features`);
 
-  window.mapFiltersContShow = (attribute) => {
-    window.mapFiltersCont.style.display = attribute;
+  window.mapFiltersContShow = (boolean) => {
+    for (let i = 0; i < mapFilters.length; i++) {
+      mapFilters[i].disabled = boolean;
+    }
+    if (!boolean) {
+      document.querySelector(`.map__filters`).classList.remove(`ad-form--disabled`);
+      // mapFeatures.classList.remove(`ad-form--disabled`);
+    } else {
+      document.querySelector(`.map__filters`).classList.add(`ad-form--disabled`);
+      // mapFeatures.classList.add(`ad-form--disabled`);
+    }
   };
-  window.mapFiltersContShow(`none`);
+
+  window.mapFiltersContShow(true);
 
   let errorTemplate = document.querySelector(`#error`).content;
 

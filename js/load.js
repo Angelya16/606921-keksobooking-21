@@ -19,21 +19,21 @@
         window.getAdData = xhr.response;
         onSuccess(window.getAdData);
         window.callFromLoad = true;
-        window.mapFiltersContShow(`block`);
+        window.mapFiltersContShow(false);
       } else {
         onError(`Статус ответа: ` + xhr.status + ` ` + xhr.statusText);
-        window.mapFiltersContShow(`none`);
+        window.mapFiltersContShow(true);
       }
     });
 
     xhr.addEventListener(`error`, () => {
       onError(`Произошла ошибка соединения`);
-      window.mapFiltersContShow(`none`);
+      window.mapFiltersContShow(true);
     });
 
     xhr.addEventListener(`timeout`, () => {
       onError(`Запрос не успел выполниться за ` + xhr.timeout + `мс`);
-      window.mapFiltersContShow(`none`);
+      window.mapFiltersContShow(true);
     });
 
     xhr.timeout = TIMEOUT_IN_MS;
