@@ -15,6 +15,11 @@
   let adFormFieldset = adForm.children;
   let clearFormBtn = adForm.querySelector(`.ad-form__reset`);
 
+  let avatarUpload = adForm.querySelector(`.ad-form__field  input[type=file]`);
+  let avatarPreview = adForm.querySelector(`.ad-form-header__preview img`);
+  let photoHomeUpload = adForm.querySelector(`.ad-form__upload  input[type=file]`);
+  let photoHomePreview = adForm.querySelector(`.ad-form__photo`);
+
   window.mapAndFormDisabled = (boolean) => {
     for (let i = 0; i < adFormFieldset.length; i++) {
       adFormFieldset[i].disabled = boolean;
@@ -126,6 +131,7 @@
       }
     }
 
+    window.restartFiltersValues = false;
     adForm.reset();
     priceInput.placeholder = 5000;
     quantityRoomsAndGuests();
@@ -138,6 +144,8 @@
 
   roomNumSelect.addEventListener(`change`, quantityRoomsAndGuests);
 
+  window.photoUpload(avatarUpload, avatarPreview);
+  window.photoUpload(photoHomeUpload, photoHomePreview);
 
   clearFormBtn.addEventListener(`click`, window.startValuesForm);
 

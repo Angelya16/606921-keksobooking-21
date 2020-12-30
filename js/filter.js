@@ -35,9 +35,18 @@
 
   window.criteriaPrice = PRICE_CRITERIA;
 
-  const filterAd = () => {
+  window.restartFiltersValues = false;
 
+  const filterAd = () => {
     const featuresInput = housingFeaturesBtn.querySelectorAll(`input`);
+
+    if (!window.restartFiltersValues) {
+      housingTypeBtn.value = housingRoomsBtn.value = housingGuestsBtn.value = housingPriceBtn.value = `any`;
+      for (let i = 0; i < featuresInput.length; i++) {
+        featuresInput[i].checked = false;
+      }
+      window.restartFiltersValues = true;
+    }
 
     window.featuresAd = [];
 
