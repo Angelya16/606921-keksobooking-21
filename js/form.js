@@ -138,6 +138,8 @@
     window.controlPopup();
     window.startPosMainPin();
     window.callFromUpload = false;
+    avatarPreview.src = `img/muffin-grey.svg`;
+    photoHomePreview.style.background = `#e4e4de`;
   };
 
   window.startValuesForm();
