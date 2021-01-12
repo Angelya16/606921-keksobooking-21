@@ -2,7 +2,7 @@
 
 (function () {
   const mapFilters = document.querySelector(`.map__filters`).children;
-
+  window.callFromUnload =
   window.mapFiltersContShow = (boolean) => {
     for (let i = 0; i < mapFilters.length; i++) {
       mapFilters[i].disabled = boolean;
@@ -35,7 +35,7 @@
     };
 
     const reloadData = (evt) => {
-      if (!window.callFromUpload) {
+      if (!window.callFromUnload) {
         window.load(null, window.successHandlerPin, window.errorHandler);
       } else {
         window.unload(new FormData(window.adFormGlobal), () => {
