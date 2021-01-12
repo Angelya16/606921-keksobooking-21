@@ -1,8 +1,6 @@
 'use strict';
 
 (function () {
-  window.callFromUpload = false;
-
   window.map = document.querySelector(`.map`);
   const mapFilters = document.querySelector(`.map__filters`).children;
 

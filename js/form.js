@@ -137,7 +137,6 @@
     quantityRoomsAndGuests();
     window.controlPopup();
     window.startPosMainPin();
-    window.callFromUpload = false;
     avatarPreview.src = `img/muffin-grey.svg`;
     photoHomePreview.style.background = `#e4e4de`;
   };
@@ -152,7 +151,6 @@
   clearFormBtn.addEventListener(`click`, window.startValuesForm);
 
   adForm.addEventListener(`submit`, (evt) => {
-    window.callFromUpload = true;
     window.upload(new FormData(adForm), () => {
       window.startValuesForm(evt);
       window.succesHandler();
