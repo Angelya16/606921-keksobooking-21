@@ -4,23 +4,23 @@
 
   const MIN_TITLE_LENGTH = 30;
   const MAX_TITLE_LENGTH = 100;
-  const TYPE_HOMES_MIN_SUM = {
+  const TypeHomesMinSum = {
     'palace': 10000,
     'flat': 1000,
     'house': 5000,
     'bungalow': 0
   };
 
-  let adForm = window.adFormGlobal;
-  let adFormFieldset = adForm.children;
-  let clearFormBtn = adForm.querySelector(`.ad-form__reset`);
+  const adForm = window.adFormGlobal;
+  const adFormFieldset = adForm.children;
+  const clearFormBtn = adForm.querySelector(`.ad-form__reset`);
 
-  let avatarUpload = adForm.querySelector(`.ad-form__field  input[type=file]`);
-  let avatarPreview = adForm.querySelector(`.ad-form-header__preview img`);
-  let photoHomeUpload = adForm.querySelector(`.ad-form__upload  input[type=file]`);
-  let photoHomePreview = adForm.querySelector(`.ad-form__photo`);
+  const avatarUpload = adForm.querySelector(`.ad-form__field  input[type=file]`);
+  const avatarPreview = adForm.querySelector(`.ad-form-header__preview img`);
+  const photoHomeUpload = adForm.querySelector(`.ad-form__upload  input[type=file]`);
+  const photoHomePreview = adForm.querySelector(`.ad-form__photo`);
 
-  window.mapAndFormDisabled = (boolean) => {
+  window.formDisabled = (boolean) => {
     for (let i = 0; i < adFormFieldset.length; i++) {
       adFormFieldset[i].disabled = boolean;
     }
@@ -30,12 +30,12 @@
       adForm.classList.add(`ad-form--disabled`);
     }
   };
-  window.mapAndFormDisabled(true);
+  window.formDisabled(true);
 
-  let titleInput = adForm.querySelector(`#title`);
+  const titleInput = adForm.querySelector(`#title`);
 
   titleInput.addEventListener(`input`, () => {
-    let valueLength = titleInput.value.length;
+    const valueLength = titleInput.value.length;
 
     if (valueLength < MIN_TITLE_LENGTH) {
       titleInput.setCustomValidity(`Маленький заголовок! Введите ещё ` + (MIN_TITLE_LENGTH - valueLength) + ` симв.`);
@@ -49,15 +49,15 @@
   });
 
 
-  let priceInput = adForm.querySelector(`#price`);
-  let typeHomeSelect = adForm.querySelector(`#type`);
+  const priceInput = adForm.querySelector(`#price`);
+  const typeHomeSelect = adForm.querySelector(`#type`);
 
   const choiceTypeHome = () => {
     if (priceInput.value > 0) {
       if (priceInput.validity.rangeOverflow) {
         priceInput.setCustomValidity(`Сумма завышена`);
-      } else if (priceInput.value < TYPE_HOMES_MIN_SUM[typeHomeSelect.value]) {
-        priceInput.setCustomValidity(`Сумма занижена, минимальная цена ` + TYPE_HOMES_MIN_SUM[typeHomeSelect.value]);
+      } else if (priceInput.value < TypeHomesMinSum[typeHomeSelect.value]) {
+        priceInput.setCustomValidity(`Сумма занижена, минимальная цена ` + TypeHomesMinSum[typeHomeSelect.value]);
       } else if (priceInput.validity.rangeUnderflow) {
         priceInput.setCustomValidity(`Сумма не может быть отрицательной`);
       } else if (priceInput.validity.stepMismatch) {
@@ -73,18 +73,18 @@
   };
 
   typeHomeSelect.addEventListener(`change`, () => {
-    priceInput.placeholder = TYPE_HOMES_MIN_SUM[typeHomeSelect.value];
+    priceInput.placeholder = TypeHomesMinSum[typeHomeSelect.value];
     choiceTypeHome();
   });
 
   priceInput.addEventListener(`input`, choiceTypeHome);
 
 
-  let timeinSelect = adForm.querySelector(`#timein`);
-  let timeoutSelect = adForm.querySelector(`#timeout`);
+  const timeinSelect = adForm.querySelector(`#timein`);
+  const timeoutSelect = adForm.querySelector(`#timeout`);
 
   const choiceTime = (evt) => {
-    let totalVal = evt.target.value;
+    const totalVal = evt.target.value;
     timeinSelect.value = totalVal;
     timeoutSelect.value = totalVal;
   };
@@ -93,12 +93,12 @@
   timeoutSelect.addEventListener(`change`, choiceTime);
 
 
-  let roomNumSelect = adForm.querySelector(`#room_number`);
-  let capacitySelect = adForm.querySelector(`#capacity`);
+  const roomNumSelect = adForm.querySelector(`#room_number`);
+  const capacitySelect = adForm.querySelector(`#capacity`);
 
   const quantityRoomsAndGuests = () => {
-    let penultValueRoom = roomNumSelect.length - 2;
-    let lastIndexGuest = capacitySelect.length - 1;
+    const penultValueRoom = roomNumSelect.length - 2;
+    const lastIndexGuest = capacitySelect.length - 1;
 
     if (capacitySelect.value > roomNumSelect.value || capacitySelect.selectedIndex === lastIndexGuest) {
       capacitySelect.value = roomNumSelect.value;
@@ -151,7 +151,7 @@
   clearFormBtn.addEventListener(`click`, window.startValuesForm);
 
   adForm.addEventListener(`submit`, (evt) => {
-    window.upload(new FormData(adForm), () => {
+    window.unload(new FormData(adForm), () => {
       window.startValuesForm(evt);
       window.succesHandler();
     });

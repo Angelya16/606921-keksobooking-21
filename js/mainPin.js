@@ -1,8 +1,6 @@
 'use strict';
 
 (function () {
-  let mapPinMain = document.querySelector(`.map__pin--main`);
-
   const TRANSFORM_ORIGIN_COORDS_PIN_MAP = {
     center: 0,
     bottomCenter: 47.5
@@ -18,14 +16,17 @@
     coordY: 375
   };
 
+  const map = document.querySelector(`.map`);
+  const mapPinMain = document.querySelector(`.map__pin--main`);
+
   window.isActiveMap = false;
 
   window.adFormGlobal = document.querySelector(`.ad-form`);
-  let adAddress = window.adFormGlobal.querySelector(`#address`);
+  const adAddress = window.adFormGlobal.querySelector(`#address`);
 
-  let locationPinOnMap = (num) => {
-    let pinCoordsX = Math.round(mapPinMain.offsetLeft + mapPinMain.clientWidth / 2);
-    let pinCoordsY = Math.round(mapPinMain.offsetTop + mapPinMain.clientHeight / 2 + num);
+  const locationPinOnMap = (num) => {
+    const pinCoordsX = Math.round(mapPinMain.offsetLeft + mapPinMain.clientWidth / 2);
+    const pinCoordsY = Math.round(mapPinMain.offsetTop + mapPinMain.clientHeight / 2 + num);
     adAddress.value = `${pinCoordsX}, ${pinCoordsY}`;
   };
 
@@ -41,11 +42,11 @@
     }
   };
 
-  let getStartedMap = (evt) => {
+  const getStartedMap = (evt) => {
     if ((evt.which === 1 || evt.key === `Enter`) && !window.isActiveMap) {
       locationPinOnMap(TRANSFORM_ORIGIN_COORDS_PIN_MAP.bottomCenter);
-      window.map.classList.remove(`map--faded`);
-      window.mapAndFormDisabled(false);
+      map.classList.remove(`map--faded`);
+      window.formDisabled(false);
       window.sendAdData = false;
     }
     if ((evt.type === `mouseup` || evt.key === `Enter`) && !window.isActiveMap) {
@@ -55,10 +56,10 @@
   };
 
   window.getEndedMap = () => {
-    window.mapAndFormDisabled(true);
+    window.formDisabled(true);
     window.isActiveMap = false;
     window.removesPinsMap();
-    window.map.classList.add(`map--faded`);
+    map.classList.add(`map--faded`);
   };
 
   mapPinMain.addEventListener(`mousedown`, (evt) => {
@@ -71,10 +72,10 @@
         y: evt.clientY
       };
 
-      let onMouseMove = function (moveEvt) {
+      const onMouseMove = function (moveEvt) {
         moveEvt.preventDefault();
 
-        let shift = {
+        const shift = {
           x: startCoords.x - moveEvt.clientX,
           y: startCoords.y - moveEvt.clientY
         };
@@ -84,7 +85,7 @@
           y: moveEvt.clientY
         };
 
-        let movePin = function (value, min, max) {
+        const movePin = function (value, min, max) {
           if (value < min) {
             return min;
           } else if (value > max) {
@@ -94,7 +95,7 @@
           }
         };
 
-        let centerPinX = mapPinMain.clientWidth / 2;
+        const centerPinX = mapPinMain.clientWidth / 2;
 
         mapPinMain.style.top = movePin(mapPinMain.offsetTop - shift.y, PIN_LIMITS_ON_MAP.min - mapPinMain.scrollHeight, PIN_LIMITS_ON_MAP.max - mapPinMain.scrollHeight) + `px`;
         mapPinMain.style.left = movePin(mapPinMain.offsetLeft - shift.x, (window.mapPins.offsetLeft - centerPinX) - 1, (window.mapPins.offsetWidth - centerPinX) - 1) + `px`;
@@ -102,7 +103,7 @@
         locationPinOnMap(TRANSFORM_ORIGIN_COORDS_PIN_MAP.bottomCenter);
       };
 
-      let onMouseUp = function (upEvt) {
+      const onMouseUp = function (upEvt) {
         upEvt.preventDefault();
 
         document.removeEventListener(`mousemove`, onMouseMove);

@@ -1,31 +1,31 @@
 'use strict';
 
 (function () {
-  const TYPE_HOMES_RU = {
+  const TypeHomesRu = {
     'palace': `Дворец`,
     'flat': `Квартира`,
     'house': `Дом`,
     'bungalow': `Бунгало`
   };
 
-  let popupCardTemplate = document.querySelector(`#card`).content;
+  const popupCardTemplate = document.querySelector(`#card`).content;
 
   const renderPopup = (ad) => {
-    let popupElement = popupCardTemplate.cloneNode(true);
-    let popupPhotos = popupElement.querySelector(`.popup__photos`);
+    const popupElement = popupCardTemplate.cloneNode(true);
+    const popupPhotos = popupElement.querySelector(`.popup__photos`);
 
     popupElement.querySelector(`.popup__title`).textContent = ad.offer.title;
     popupElement.querySelector(`.popup__text--address`).textContent = ad.offer.address;
     popupElement.querySelector(`.popup__text--price`).textContent = ad.offer.price + `₽/ночь`;
-    popupElement.querySelector(`.popup__type`).textContent = TYPE_HOMES_RU[ad.offer.type];
+    popupElement.querySelector(`.popup__type`).textContent = TypeHomesRu[ad.offer.type];
     popupElement.querySelector(`.popup__text--capacity`).textContent = ad.offer.rooms + ` комнаты для ` + ad.offer.guests + ` гостей`;
     popupElement.querySelector(`.popup__text--time`).textContent = `Заезд после ` + ad.offer.checkin + `, выезд до ` + ad.offer.checkout;
 
     for (let i = 0; i < window.QuantityHousingFeatures.length; i++) {
-      let popupFeatures = popupElement.querySelector(`.popup__features`);
+      const popupFeatures = popupElement.querySelector(`.popup__features`);
       popupFeatures.children[i].style.display = `none`;
       for (let j = 0; j < ad.offer.features.length; j++) {
-        let classListPopup = `popup__feature--` + ad.offer.features[j];
+        const classListPopup = `popup__feature--` + ad.offer.features[j];
         if (popupFeatures.children[i].classList[1] === classListPopup) {
           popupFeatures.children[i].style.display = `inline-block`;
         }
@@ -38,7 +38,7 @@
       popupPhotos.remove();
     } else {
       for (let i = 0; i < ad.offer.photos.length; i++) {
-        let popupPhoto = popupPhotos.querySelector(`.popup__photo`).cloneNode();
+        const popupPhoto = popupPhotos.querySelector(`.popup__photo`).cloneNode();
         popupPhoto.src = ad.offer.photos[i];
         popupPhotos.append(popupPhoto);
       }
@@ -51,8 +51,8 @@
   };
 
   window.controlPopup = (num, value) => {
-    let fragmentPopup = document.createDocumentFragment();
-    let windowPopup = window.mapPins.querySelector(`article`);
+    const fragmentPopup = document.createDocumentFragment();
+    const windowPopup = window.mapPins.querySelector(`article`);
 
     if (windowPopup !== null) {
       window.mapPins.querySelector(`article`).remove();
@@ -65,7 +65,7 @@
 
   window.openPopup = (num) => {
     window.controlPopup(num, `ad`);
-    let popupCloseBtn = window.mapPins.querySelector(`.popup__close`);
+    const popupCloseBtn = window.mapPins.querySelector(`.popup__close`);
     const closePopup = (evt) => {
       if (evt.key === `Escape` || evt.type === `click`) {
         document.removeEventListener(`keydown`, closePopup);

@@ -2,7 +2,7 @@
 
 (function () {
 
-  const PRICE_CRITERIA = {
+  const PriceCriteria = {
     'any': {
       'min': 0,
       'max': Infinity
@@ -21,6 +21,10 @@
     }
   };
 
+  window.CriteriaPrice = PriceCriteria;
+
+  window.restartFiltersValues = false;
+
   const housingTypeBtn = document.querySelector(`#housing-type`);
   const housingPriceBtn = document.querySelector(`#housing-price`);
   const housingRoomsBtn = document.querySelector(`#housing-rooms`);
@@ -36,10 +40,6 @@
     roomsBtn: housingRoomsBtn,
     guestsBtn: housingGuestsBtn
   };
-
-  window.criteriaPrice = PRICE_CRITERIA;
-
-  window.restartFiltersValues = false;
 
   const filterAd = () => {
 
