@@ -1,12 +1,10 @@
 'use strict';
 
 (function () {
-  window.getAdData = [];
   window.callFromUpload = false;
 
   window.map = document.querySelector(`.map`);
   const mapFilters = document.querySelector(`.map__filters`).children;
-  // const mapFeatures = document.querySelector(`.map__features`);
 
   window.mapFiltersContShow = (boolean) => {
     for (let i = 0; i < mapFilters.length; i++) {
@@ -14,10 +12,8 @@
     }
     if (!boolean) {
       document.querySelector(`.map__filters`).classList.remove(`ad-form--disabled`);
-      // mapFeatures.classList.remove(`ad-form--disabled`);
     } else {
       document.querySelector(`.map__filters`).classList.add(`ad-form--disabled`);
-      // mapFeatures.classList.add(`ad-form--disabled`);
     }
   };
 

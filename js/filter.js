@@ -1,18 +1,6 @@
 'use strict';
 
 (function () {
-  const housingTypeBtn = document.querySelector(`#housing-type`);
-  const housingPriceBtn = document.querySelector(`#housing-price`);
-  const housingRoomsBtn = document.querySelector(`#housing-rooms`);
-  const housingGuestsBtn = document.querySelector(`#housing-guests`);
-  const housingFeaturesBtn = document.querySelector(`#housing-features`);
-
-  window.filters = {
-    typeBtn: housingTypeBtn,
-    priceBtn: housingPriceBtn,
-    roomsBtn: housingRoomsBtn,
-    guestsBtn: housingGuestsBtn
-  };
 
   const PRICE_CRITERIA = {
     'any': {
@@ -33,12 +21,27 @@
     }
   };
 
+  const housingTypeBtn = document.querySelector(`#housing-type`);
+  const housingPriceBtn = document.querySelector(`#housing-price`);
+  const housingRoomsBtn = document.querySelector(`#housing-rooms`);
+  const housingGuestsBtn = document.querySelector(`#housing-guests`);
+  const housingFeaturesBtn = document.querySelector(`#housing-features`);
+  const featuresInput = housingFeaturesBtn.querySelectorAll(`input`);
+
+  window.QuantityHousingFeatures = featuresInput;
+
+  window.filters = {
+    typeBtn: housingTypeBtn,
+    priceBtn: housingPriceBtn,
+    roomsBtn: housingRoomsBtn,
+    guestsBtn: housingGuestsBtn
+  };
+
   window.criteriaPrice = PRICE_CRITERIA;
 
   window.restartFiltersValues = false;
 
   const filterAd = () => {
-    const featuresInput = housingFeaturesBtn.querySelectorAll(`input`);
 
     if (!window.restartFiltersValues) {
       housingTypeBtn.value = housingRoomsBtn.value = housingGuestsBtn.value = housingPriceBtn.value = `any`;
@@ -57,7 +60,6 @@
     }
 
     window.controlPopup(0);
-    // window.debounce(window.updatePins());
     window.updatePins();
   };
 

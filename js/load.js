@@ -16,8 +16,7 @@
 
     xhr.addEventListener(`load`, () => {
       if (xhr.status === StatusCode.OK) {
-        window.getAdData = xhr.response;
-        onSuccess(window.getAdData);
+        onSuccess(xhr.response);
         window.callFromLoad = true;
         window.mapFiltersContShow(false);
       } else {

@@ -21,7 +21,7 @@
     popupElement.querySelector(`.popup__text--capacity`).textContent = ad.offer.rooms + ` комнаты для ` + ad.offer.guests + ` гостей`;
     popupElement.querySelector(`.popup__text--time`).textContent = `Заезд после ` + ad.offer.checkin + `, выезд до ` + ad.offer.checkout;
 
-    for (let i = 0; i < window.featuresHomes.length; i++) {
+    for (let i = 0; i < window.QuantityHousingFeatures.length; i++) {
       let popupFeatures = popupElement.querySelector(`.popup__features`);
       popupFeatures.children[i].style.display = `none`;
       for (let j = 0; j < ad.offer.features.length; j++) {
