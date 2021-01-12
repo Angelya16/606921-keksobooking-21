@@ -10,8 +10,10 @@
     }
     if (!boolean) {
       document.querySelector(`.map__filters`).classList.remove(`ad-form--disabled`);
+      mapFeatures.classList.remove(`ad-form--disabled`);
     } else {
       document.querySelector(`.map__filters`).classList.add(`ad-form--disabled`);
+      mapFeatures.classList.add(`ad-form--disabled`);
     }
   };
 
