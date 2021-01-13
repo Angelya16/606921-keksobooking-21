@@ -2,7 +2,9 @@
 
 (function () {
   const mapFilters = document.querySelector(`.map__filters`).children;
-  window.callFromUnload =
+
+  window.callFromUnload = false;
+
   window.mapFiltersContShow = (boolean) => {
     for (let i = 0; i < mapFilters.length; i++) {
       mapFilters[i].disabled = boolean;
@@ -41,7 +43,7 @@
         window.unload(new FormData(window.adFormGlobal), () => {
           window.startValuesForm(evt);
           window.succesHandler();
-        });
+        }, null);
       }
       closeErrorWindow(evt);
     };

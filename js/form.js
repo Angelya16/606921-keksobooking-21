@@ -139,6 +139,7 @@
     window.startPosMainPin();
     avatarPreview.src = `img/muffin-grey.svg`;
     photoHomePreview.style.background = `#e4e4de`;
+    window.callFromUnload = false;
   };
 
   window.startValuesForm();
@@ -151,10 +152,11 @@
   clearFormBtn.addEventListener(`click`, window.startValuesForm);
 
   adForm.addEventListener(`submit`, (evt) => {
+    window.callFromUnload = true;
     window.unload(new FormData(adForm), () => {
       window.startValuesForm(evt);
       window.succesHandler();
-    });
+    }, null);
     evt.preventDefault();
   });
 })();
